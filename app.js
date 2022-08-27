@@ -48,7 +48,7 @@ app.use(passport.authenticate('session'))
 
 
 //Passport config 
-// require('./config/passport')(passport)
+require('./config/passport')(passport)
 
 //Static folder 
 app.use(express.static(path.join(__dirname, 'public')))
