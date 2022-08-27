@@ -9,7 +9,11 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
-    password: {
+    hashedPassword: {
+        type: String,
+        required: true
+    },
+    salt: {
         type: String,
         required: true
     }

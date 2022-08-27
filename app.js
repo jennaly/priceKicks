@@ -11,8 +11,6 @@ const connectDB = require('./config/db')
 //Load config
 dotenv.config( {path: './config/config.env'})
 
-//Passport config 
-// require('./config/passport')(passport)
 
 connectDB()
 
@@ -46,6 +44,11 @@ app.use(session({
 //Passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(passport.authenticate('session'))
+
+
+//Passport config 
+// require('./config/passport')(passport)
 
 //Static folder 
 app.use(express.static(path.join(__dirname, 'public')))
