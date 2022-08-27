@@ -7,6 +7,7 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const connectDB = require('./config/db')
 
+
 //Load config
 dotenv.config( {path: './config/config.env'})
 
@@ -29,9 +30,11 @@ if (process.env.NODE_ENV === "development") {
 //Middleware
 app.set("view engine", "ejs")
 
-//Session mmiddlewaree
+//Session mmiddleware
+const SECRET =  process.env.SECRET;
+
 app.use(session({
-    secret: 'keyboard cat',
+    secret: SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -46,6 +49,14 @@ app.use(passport.session())
 
 //Static folder 
 app.use(express.static(path.join(__dirname, 'public')))
+
+//Routes
+const indexRouter = require('./routes/index')
+const authRouter = require('./routes/auth')
+
+app.use('/', indexRouter)
+app.use('/', authRouter)
+
 
 const PORT = process.env.PORT || 8888
 

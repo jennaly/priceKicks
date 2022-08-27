@@ -1,18 +1,21 @@
-const Mongoose = require("mongoose")
-const User = require('./user')
+const Mongoose = require("mongoose");
 
 const UserProductSchema = new Mongoose.Schema({
-    SKU: {
+    sku: {
         type: String,
         required: true,
     },
-    User: {
+    imageUrl: {
+        type: String,
+        required: true,
+    },
+    user: {
         type: Mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'users'
     }
+});
 
-})
+const UserProduct = Mongoose.model('UserProduct', UserProductSchema);
 
-const UserProduct = connection.model('UserProduct', UserSchema);
-module.exports = UserProduct
+module.exports = UserProduct;
