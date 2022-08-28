@@ -26,7 +26,10 @@ if (process.env.NODE_ENV === "development") {
 }
 
 //Middleware
-app.set("view engine", "ejs")
+app.set('views', path.join(__dirname, 'views'));
+
+app.set("view engine", ".ejs")
+
 
 //Session mmiddleware
 const SECRET =  process.env.SECRET;
@@ -52,6 +55,7 @@ require('./config/passport')(passport)
 
 //Static folder 
 app.use(express.static(path.join(__dirname, 'public')))
+
 
 //Routes
 const indexRouter = require('./routes/index')

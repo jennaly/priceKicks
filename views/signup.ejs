@@ -3,24 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <title>Join PriceKicks</title>
 </head>
 <body>
-    <h1>Sign up</h1>
-<form action="/signup" method="post">
-    <section>
-        <label for="name">Name</label>
-        <input id="name" name="name" type="text" autocomplete="name" required>
-    </section>
-    <section>
-        <label for="email">Email</label>
-        <input id="email" name="email" type="text" autocomplete="email" required>
-    </section>
-    <section>
-        <label for="new-password">Password</label>
-        <input id="new-password" name="password" type="password" autocomplete="new-password" required>
-    </section>
-    <button type="submit">Sign up</button>
-</form>
+    <div class="flex flex-col items-center mt-4">
+        <h1 class="text-2xl mt-4 font-light tracking-tight text-black">Join PriceKicks</h1>
+        <div class="card card-normal px-4 mt-4  bg-slate-100 rounded-md  border border-solid border-slate-300 ">
+            <div class="card body items-center">
+                <form action="/signup" method="post" class="px-1.5">
+                    <section class="mt-4">
+                        <label for="name" class="text-sm">Name</label>
+                        <input id="name" name="name" type="text" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" autocomplete="current-password" required autofocus>
+                    </section>
+                    <section class="mt-4">
+                        <label for="email" class="text-sm">Email address</label>
+                        <input id="email" name="email" type="text" autocomplete="email" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" required>
+                    </section>
+
+                    <section class="mt-4">
+                        <label for="new-password" class="text-sm">Password</label>
+                        <input id="new-password" name="password" type="password" autocomplete="new-password" class="input input-bordered input-sm w-full max-w-xs rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" required>
+                    </section>
+                    <button class="my-4 px-2 py-2 btn-block rounded-md bg-green-600 border-green-700 hover:bg-green-700 text-white text-sm font-semibold" type="submit">Sign up</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card card-normal px-9 mt-4 items-center rounded-md border border-solid border-slate-300">
+            <div class="card body items-center">
+                <p class="px-5 py-4 text-sm"> Already have an account? <span class="text-blue-500"><a href="/login">Login.</a></span></p>
+            </div>
+        </div>
+          
+          
+        
+    </div>
 </body>
 </html>
+
+
+
