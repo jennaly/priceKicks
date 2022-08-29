@@ -60,9 +60,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 //Routes
 const indexRouter = require('./routes/index')
 const authRouter = require('./routes/auth')
+const productRouter = require('./routes/product')
 
 app.use('/', indexRouter)
 app.use('/', authRouter)
+app.use('/product', productRouter)
 
 
 const PORT = process.env.PORT || 8888
