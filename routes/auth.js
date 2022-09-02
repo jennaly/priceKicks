@@ -3,6 +3,7 @@ const passport = require('passport');
 const router = express.Router();
 const authController = require('../controllers/auth')
 const { ensureAuth, ensureGuest } = require('../middleware/auth');
+const { body, check } = require('express-validator');
 
 // @desc local auth
 // @route GET /auth
@@ -29,12 +30,25 @@ router.get('/logout', (req,res) => {
 
 //@desc Signup 
 //@route GET /signup
-router.get('/signup', function (req, res) {
-    res.render('signup'); 
-})
+router.get('/signup', authController.getSignup)
+
+
+//@desc middleware for SignUp
+const signupEmailValidator = [
+    body('username').isEmail(), 
+]
+
+const signupPasswordValidator = [
+    check('password')
+    .isLength({ min: 8 })
+    .withMessage('must be at least 5 chars long')
+    .matches(/\d/)
+    .withMessage('must contain a number'),
+
+]
 
 //@desc Signup
 //@route POST /signup
-router.post('/signup', authController.signUp)
+router.post('/signup', signupEmailValidator, signupPasswordValidator, authController.postSignup) 
 
 module.exports = router

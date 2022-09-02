@@ -2,7 +2,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 const User = require('../models/User');
 
-
 module.exports = function (passport) {
     passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, cb) => {
         
@@ -13,9 +12,9 @@ module.exports = function (passport) {
         if (!user) { return cb(null, false, { message: 'Incorrect username or password.' }); }
         
         // if user is in database, verify hashed password is password submitted by user
-        crypto.pbkdf2(password, user.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+        crypto.pbkdf2(password, user.salt, 310000, 32, 'sha256', function(err, loginPassword) {
             if (err) { return cb(err); }
-            if (!crypto.timingSafeEqual(user.hashedPassword, hashedPassword)) {
+            if (user.hashedPassword !== loginPassword.toString('hex')) {
                 return cb(null, false, { message: 'Incorrect username or password.' });
             }
             
