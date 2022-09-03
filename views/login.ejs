@@ -11,14 +11,15 @@
 </head>
 <body>
     <div class="flex flex-col items-center mt-4">
-        <h1 class="text-2xl mt-4 font-light tracking-tight">Sign in to PriceKicks</h1>
-        <div class="card card-normal px-4 mt-4  bg-slate-100 rounded-md  border border-solid border-slate-300 ">
+        <h1 class="text-2xl mt-4 font-light tracking-tight text-black">Sign in to PriceKicks</h1>
+        <div class="card card-normal px-6 mt-4  bg-slate-100 rounded-md  border border-solid border-slate-300 ">
             <div class="card body items-center">
                 <form action="/login/password" method="post" class="px-1.5">
                     <section class="mt-4">
                         <label for="email" class="text-sm">Email address</label>
                         <input id="email" name="email" type="text" autocomplete="email" class="input input-bordered w-full input-sm w-max-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" required autofocus>
                     </section>
+
                     <section class="mt-4">
                         <label for="current-password" class="text-sm">Password</label>
                         <input id="current-password" name="password" type="password" class="input input-bordered input-sm w-full w-max-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" autocomplete="current-password" required>
@@ -34,10 +35,7 @@
                
             </div>
         </div>
-
-          
-          
-        
     </div>
+    <script src="/public/index.js"></script>
 </body>
 </html>

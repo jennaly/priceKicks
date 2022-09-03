@@ -41,9 +41,7 @@ const signupEmailValidator = [
 const signupPasswordValidator = [
     check('password')
     .isLength({ min: 8 })
-    .withMessage('must be at least 5 chars long')
-    .matches(/\d/)
-    .withMessage('must contain a number'),
+    .withMessage('Must be at least 8 characters')
 
 ]
 

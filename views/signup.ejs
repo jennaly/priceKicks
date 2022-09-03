@@ -12,37 +12,36 @@
 <body>
     <div class="flex flex-col items-center mt-4">
         <h1 class="text-2xl mt-4 font-light tracking-tight text-black">Join PriceKicks</h1>
-        <div class="card card-normal px-4 mt-4  bg-slate-100 rounded-md  border border-solid border-slate-300 ">
+        <div class="card card-normal px-6 mt-4  bg-slate-100 rounded-md border border-solid border-slate-300">
             <div class="card body items-center">
-                <form action="/signup" method="post" class="px-1.5 w-full">
-                    <section class="mt-4 w-full">
-                        <label for="name" class="text-sm block  w-full">Name</label>
-                        <input id="name" name="name" type="text" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 block" autocomplete="current-password" required autofocus>
+                <form action="/signup" method="post" class="px-1.5">
+                    <section class="mt-4">
+                        <label for="name" class="text-sm">Name</label>
+                        <input id="name" name="name" type="text" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" autocomplete="current-password" required autofocus>
                     </section>
-                    
-                   
+                
                     <section class="mt-4">
                         <label for="email" class="text-sm">Email address</label>
-                        <input id="email" name="email" type="text" autocomplete="email" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 block" required>
+                        <input id="email" name="email" type="text" autocomplete="email" onclick="deleteEmailValMsg()" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 focus:bg-white" required>
+                        
                         <% if (errors) { %>
                             <% for (let i = 0; i < errors.length; i++) { %>
                                 <% if (errors[i]['param'] == 'username') { %>
-                                    <span class="text-sm text-right  w-full">Invalid Email</span>
+                                    <br><span id="emailValMsg" class="text-xs text-red-600">Invalid Email</span>
                                 <% } %>
                             <% } %>
                         <% } %>
+                        
                     </section>
 
-                    <section class="mt-4">
+                    <section class="mt-4 items-center">
                         <label for="new-password" class="text-sm">Password</label>
-
-                      
+                        <input id="new-password" name="password" type="password" onclick="deletePasswordValMsg()" autocomplete="new-password" class="input input-bordered input-sm w-full max-w-xs rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" required>
                         
-                        <input id="new-password" name="password" type="password" autocomplete="new-password" class="input input-bordered input-sm w-full max-w-xs rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 block" required>
                         <% if (errors) { %>
                             <% for (let i = 0; i < errors.length; i++) { %>
                                 <% if (errors[i]['param'] == 'password') { %>
-                                    <span class="text-sm text-right  w-full"><%= errors[i]['msg'] %></span>
+                                    <br><span id="passwordValMsg" class="text-xs text-red-600"><%= errors[i]['msg'] %></span>
                                 <% } %>
                             <% } %>
                         <% } %>
@@ -52,15 +51,14 @@
             </div>
         </div>
 
-        <div class="card card-normal px-10 mt-4 items-center rounded-md border border-solid border-slate-300">
+        <div class="card card-normal px-6 mt-4 items-center rounded-md border border-solid border-slate-300">
             <div class="card body items-center">
-                <p class="px-5 py-4 text-sm"> Already have an account? <span class="text-blue-500"><a href="/login">Login.</a></span></p>
+                <p class="px-9 py-4 text-sm"> Already have an account? <span class="text-blue-500"><a href="/login">Sign In.</a></span></p>
+               
             </div>
         </div>
-          
-      
-        
     </div>
+    <script src="/js/index.js"></script>
 </body>
 </html>
 
