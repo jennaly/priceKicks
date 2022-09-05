@@ -33,16 +33,15 @@ router.get('/logout', (req,res) => {
 router.get('/signup', authController.getSignup)
 
 
-//@desc middleware for SignUp
+//@desc middleware for Signup
 const signupEmailValidator = [
-    body('username').isEmail(), 
+    body('email').isEmail(), 
 ]
 
 const signupPasswordValidator = [
     check('password')
     .isLength({ min: 8 })
     .withMessage('Must be at least 8 characters')
-
 ]
 
 //@desc Signup
