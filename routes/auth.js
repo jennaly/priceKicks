@@ -16,8 +16,12 @@ router.get('/login', ensureGuest, function (req, res) {
 // @route POST /auth
 router.post('/login/password', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login'
-}))
+    failWithError: true,
+}), (error, req, res, next) => {
+    res.render('login', {
+        error: error
+    })
+});
 
 //@desc Logout User
 //@route GET /auth/logout
@@ -41,7 +45,7 @@ const signupEmailValidator = [
 const signupPasswordValidator = [
     check('password')
     .isLength({ min: 8 })
-    .withMessage('Must be at least 8 characters')
+    .withMessage('must be at least 8 characters')
 ]
 
 //@desc Signup
