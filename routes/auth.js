@@ -25,12 +25,7 @@ router.post('/login/password', passport.authenticate('local', {
 
 //@desc Logout User
 //@route GET /auth/logout
-router.get('/logout', (req,res) => {
-    req.logout(function(err) {
-        if (err) {return next(err)}
-        res.redirect('/login')
-    })
-})
+router.get('/logout', authController.logout)
 
 //@desc Signup 
 //@route GET /signup

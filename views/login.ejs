@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="/css/normalize.css" rel="stylesheet">
+    <link href="/css/reset.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <title>Sign in to PriceKicks</title>
 </head>
@@ -28,10 +28,10 @@
                         <label for="current-password" class="text-sm dark:text-slate-300">Password</label>
                         <input id="current-password" name="password" type="password" class="input input-bordered input-sm w-full w-max-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 dark:focus:outline-sky-500 dark:text-slate-300 dark:bg-black" autocomplete="current-password" required>
                     </section>
-                    <button class="my-4 btn-block px-2 py-2 rounded-md bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-semibold" type="submit">Sign in</button>
+                    <button class="mt-4 btn-block px-2 py-2 rounded-md bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-semibold" type="submit">Sign in</button>
                     <% if (locals.error) { %>
                         <% if (locals.error["message"] == "Unauthorized") { %>
-                            <div class="alert alert-error shadow-lg">
+                            <div class="alert alert-error shadow-lg mt-4">
                                 <div>
                                   <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                   <span class="text-xs ">Incorrect email or password</span>
