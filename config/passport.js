@@ -5,7 +5,6 @@ const User = require('../models/User');
 module.exports = function (passport) {
     passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, cb) => {
         
-        // Check if the provided email is in the database.
         const user = await User.findOne({ email: email });
         
         // if user is not in database, return error message 

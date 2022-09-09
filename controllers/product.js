@@ -2,26 +2,35 @@ const axios = require("axios");
 const qs = require("qs");
 const crypto = require("crypto");
 
-module.exports.getProduct = async (req, res) => {
-    let productId;
-    let productData;
+module.exports.getStockXProduct = async (req, res) => {
     
     try {
-        productId = await getProductId(req.query.sku);
+       const productId = await getProductId(req.query.sku);
 
-        productData = await getProductPrices(productId, req.query.size);
+       const productData = await getProductPrices(productId, req.query.size);
+
+       return res.json({
+        sku : req.query.sku,
+        size: req.query.size,
+        productId,
+        productData
+        })
+
+        // return res.render('index', ({
+        //     sku : req.query.sku,
+        //     size: req.query.size,
+        //     productId,
+        //     productData
+        // }))
+       
     } catch (error) {
         console.error(error);
         return res.render('error');
     }
 
-    return res.json({
-        sku : req.query.sku,
-        size: req.query.size,
-        productId,
-        productData
-    })
+   
 }
+
 
 const STOCKX_SEARCH_URL = "https://stockx.com/api/browse";
 

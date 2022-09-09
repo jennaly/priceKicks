@@ -7,21 +7,17 @@ const { body, check } = require('express-validator');
 
 // @desc local auth
 // @route GET /auth
-router.get('/login', ensureGuest, function (req, res) {
-    res.header('Cache-Control', 'no-cache'),
-    res.render('login')
-});
+router.get('/login', ensureGuest, authController.getLogin)
+
+// @desc middleware for passport authentication
+const passportLocalAuth = passport.authenticate('local', {
+    successRedirect: '/',
+    failWithError: true
+})
 
 // @desc local auth
 // @route POST /auth
-router.post('/login/password', passport.authenticate('local', {
-    successRedirect: '/',
-    failWithError: true,
-}), (error, req, res, next) => {
-    res.render('login', {
-        error: error
-    })
-});
+router.post('/login/password', passportLocalAuth, authController.postLogin)
 
 //@desc Logout User
 //@route GET /auth/logout

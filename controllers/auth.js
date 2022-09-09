@@ -2,6 +2,18 @@ const crypto = require('crypto');
 const User = require('../models/User');
 const { validationResult } = require('express-validator');
 
+exports.getLogin = (req, res) => {
+    res.header('Cache-Control', 'no-cache'),
+    res.render('login')
+}
+
+exports.postLogin = (error, req, res, next) => {
+    res.render('login', {
+        error: error
+    })
+}
+
+
 exports.getSignup = (req, res) => {
     if (req.user) {
         return res.redirect('/')
@@ -10,6 +22,7 @@ exports.getSignup = (req, res) => {
         errors: []
     })
 }
+
 
 exports.postSignup = (req, res) => {
 

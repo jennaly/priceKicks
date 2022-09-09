@@ -7,14 +7,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-    <title>Sign in to PriceKicks</title>
+    <title>PriceKicks</title>
 </head>
 <body>
     <div class="flex flex-col items-center mt-4">
-        <h1>Product: <%= sku %> </h1>
-        <section class="stockx"> 
-            <p>Lowest ask price:</p>
-        </section>
+        <h1> Product SKU: <%= sku %> </h1>
+        <span>Product Name: <%= productData.title %> </span>
+        <span>Lowest Ask: $<%= productData.market.bidAskData.lowestAsk %> </span>
+        <span>Highest Bid: $<%= productData.market.bidAskData.highestBid %> </span>
     </div>
     
 
