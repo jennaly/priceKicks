@@ -25,9 +25,9 @@
                         <label for="email" class="text-sm dark:test-slate-300">Email address</label>
                         <input id="email" name="email" type="text" autocomplete="email" onclick="deleteEmailValMsg()" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 dark:focus:outline-sky-500 dark:text-slate-300 dark:bg-black" required>
                         
-                        <% if (errors) { %>
-                            <% for (let i = 0; i < errors.length; i++) { %>
-                                <% if (errors[i]['param'] == 'email') { %>
+                        <% if (locals.errors) { %>
+                            <% for (let i = 0; i < locals.errors.length; i++) { %>
+                                <% if (locals.errors[i]['param'] == 'email') { %>
                                     <div id="emailValMsg" class="alert alert-warning shadow-lg my-4">
                                         <div>
                                           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
@@ -45,13 +45,13 @@
                         <label for="new-password" class="text-sm">Password</label>
                         <input id="new-password" name="password" type="password" onclick="deletePasswordValMsg()" autocomplete="new-password" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 dark:focus:outline-sky-500 dark:text-slate-300 dark:bg-black" required>
                         
-                        <% if (errors) { %>
-                            <% for (let i = 0; i < errors.length; i++) { %>
-                                <% if (errors[i]['param'] == 'password') { %>
+                        <% if (locals.errors) { %>
+                            <% for (let i = 0; i < locals.errors.length; i++) { %>
+                                <% if (locals.errors[i]['param'] == 'password') { %>
                                     <div id="passwordValMsg" class="alert alert-warning shadow-lg mt-4 mb-2">
                                         <div>
                                           <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                                          <span class="text-xs">Password <%= errors[i]['msg'] %></span>
+                                          <span class="text-xs">Password <%= locals.errors[i]['msg'] %></span>
                                         </div>
                                       </div>
                                     <!-- <br><span id="passwordValMsg" class="text-xs text-red-600"><%= errors[i]['msg'] %></span> -->

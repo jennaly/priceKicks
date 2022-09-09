@@ -40,12 +40,10 @@ exports.postSignup = (req, res) => {
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, password) {
         if (err) { return res.render('error') }
 
-        User.findOne({$or: [
-        { email: req.body.email },
-        { userName: req.body.userName }
-        ]}, async (err, existingUser) => {
+        User.findOne({ email: req.body.email }, async (err, existingUser) => {
             if (err) { return next(err) }
             if (existingUser) {
+                console.log(existingUser)
                 return res.render('signup', {
                     'existingAccountError': 'PriceKicks account already exists'
                 })
@@ -65,10 +63,10 @@ exports.postSignup = (req, res) => {
                 };
 
                 user.save((err) => {
-                    if (err) { return next(err) }
+                    if (err) { return res.render('error') }
                     req.login(userObject, function (err) {
                         if (err) { return res.render('error') };
-                        res.redirect('/');
+                        return res.redirect('/');
                     });
                 })
             }
@@ -78,7 +76,7 @@ exports.postSignup = (req, res) => {
 
 exports.logout = (req, res) => {
     req.logout(function(err) {
-        if (err) {return next(err)}
+        if (err)  { return res.render('error') };
         res.redirect('/login')
     })
 }
