@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark:bg-black">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,18 +12,18 @@
 </head>
 <body>
     <div class="flex flex-col items-center mt-4">
-        <h1 class="text-2xl mt-4 font-light tracking-tight text-black">Join PriceKicks</h1>
-        <div class="card card-normal px-5 mt-4  bg-slate-100 rounded-md border border-solid border-slate-300">
+        <h1 class="text-2xl mt-4 font-light tracking-tight text-black dark:text-slate-200">Join PriceKicks</h1>
+        <div class="card card-normal px-4 mt-4  bg-slate-100 dark:bg-zinc-900 rounded-md border border-solid border-slate-200 dark:border-zinc-800">
             <div class="card body items-center">
-                <form action="/signup" method="post" class="px-1.5">
+                <form action="/signup" method="post" class="px-1.5 pb-4">
                     <section class="mt-4">
-                        <label for="name" class="text-sm">Name</label>
-                        <input id="name" name="name" type="text" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" autocomplete="current-password" required autofocus>
+                        <label for="name" class="text-sm dark:text-slate-300">Name</label>
+                        <input id="name" name="name" type="text" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 dark:focus:outline-sky-500 dark:text-slate-300 dark:bg-black" required autofocus>
                     </section>
                 
                     <section class="mt-4">
-                        <label for="email" class="text-sm">Email address</label>
-                        <input id="email" name="email" type="text" autocomplete="email" onclick="deleteEmailValMsg()" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 focus:bg-white" required>
+                        <label for="email" class="text-sm dark:test-slate-300">Email address</label>
+                        <input id="email" name="email" type="text" autocomplete="email" onclick="deleteEmailValMsg()" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 dark:focus:outline-sky-500 dark:text-slate-300 dark:bg-black" required>
                         
                         <% if (errors) { %>
                             <% for (let i = 0; i < errors.length; i++) { %>
@@ -43,7 +43,7 @@
 
                     <section class="mt-4 items-center">
                         <label for="new-password" class="text-sm">Password</label>
-                        <input id="new-password" name="password" type="password" onclick="deletePasswordValMsg()" autocomplete="new-password" class="input input-bordered input-sm w-full max-w-xs rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500" required>
+                        <input id="new-password" name="password" type="password" onclick="deletePasswordValMsg()" autocomplete="new-password" class="input input-bordered input-sm w-full max-w-xs mt-2 rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 dark:focus:outline-sky-500 dark:text-slate-300 dark:bg-black" required>
                         
                         <% if (errors) { %>
                             <% for (let i = 0; i < errors.length; i++) { %>
@@ -59,15 +59,22 @@
                             <% } %>
                         <% } %>
                     </section>
-                    <button class="my-4 px-2 py-2 btn-block rounded-md bg-green-600 border-green-700 hover:bg-green-700 text-white text-sm font-semibold" type="submit">Sign up</button>
+                    <button class="mt-4 btn-block px-2 py-2 rounded-md bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-semibold" type="submit">Sign up</button>
+                    <% if (locals.existingAccountError) { %>
+                        <div class="alert alert-error shadow-lg mt-4">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <span class="text-xs "> <%= locals.existingAccountError %> </span>
+                            </div>
+                        </div>
+                    <% } %>
                 </form>
             </div>
         </div>
 
-        <div class="card card-normal px-5 mt-4 items-center rounded-md border border-solid border-slate-300">
+        <div class="card card-normal px-4 mt-4 items-center rounded-md border border-solid border-slate-300 dark:border-zinc-800">
             <div class="card body items-center">
-                <p class="px-9 py-4 text-sm"> Already have an account? <span class="text-blue-500"><a href="/login">Sign In.</a></span></p>
-               
+                <p class="px-9 py-4 text-sm dark:text-slate-200"> Already have an account? <span class="text-blue-500"><a href="/login">Sign In.</a></span></p>
             </div>
         </div>
     </div>
