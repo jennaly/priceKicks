@@ -4,15 +4,16 @@
     <%- include('./partials/head'); %>
 </head>
 <body>
-    <div class="container mx-auto px-5 py-4">
+    <div class="container mx-auto px-5 py-4 flex flex-col">
         <header>
             <%- include('./partials/header'); %>
         </header>
         
         <div>
             <%- include('./partials/productSearchBar'); %>
-         </div>
-         
+        </div>
+
+
         <div class="flex flex-col items-center mt-4">
             <h1> Product SKU: <%= sku %> </h1>
             <span>Product Name: <%= productData.title %> </span>
@@ -21,11 +22,20 @@
             <% if (locals.noProductError) { %>
                 <span> <%= locals.noProductError %> </span>
             <% } else { %>
-                <span>Lowest Ask: $<%= lowestAsk %> </span>
-                <span>Highest Bid: $<%= highestBid %> </span>
+
+                <% if (lowestAsk != null) { %>
+                    <span>Lowest Ask: $<%= lowestAsk %> </span>
+                <% } else { %>
+                    <span>Lowest Ask: None %> </span>
+                <% } %>
+
+                <% if (highestBid != null) { %>
+                    <span>Highest Bid: $<%= highestBid %> </span>
+                <% } else { %>
+                    <span>Highest Bid: None %> </span>
+                <% } %>
+
             <% } %>
-
-
         </div>
     </div>
 

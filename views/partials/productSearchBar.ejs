@@ -1,5 +1,17 @@
-<form action="/product" method='GET'>
-    <input type="text" placeholder="Enter Product SKU" name='sku' >
-    <input type="text" placeholder="Enter Product Size" name='size'>
-    <button type="submit" class="btn btn-ghost">Submit</button>
-  </form>
+<div class="card w-96 bg-blue-300 mx-auto shadow-xl">
+    <div class="card-body">
+        <form action="/product" method='GET' >
+            <div class="flex flex-col">
+                <div class="flex justify-between place-items-center my-2">
+                    <label for="sku" class="label-text text-sm uppercase font-semibold">Enter Product SKU</label> 
+                    <input type="text" placeholder="CP9652" name='sku' class="text-center w-5/12 rounded-md" required>
+                </div>
+                <div class="flex justify-between place-items-center my-2">
+                    <label for="size" class="label-text text-sm uppercase font-semibold">Enter Product Size</label>
+                    <input type="text" placeholder="10" name='size' class="text-center w-5/12 rounded-md"  required>
+                </div>
+            </div>
+            <button type="submit" class="btn bg-blue-900 btn-block space-x-2 my-2">See Product</button>
+        </form>
+    </div>
+</div>
