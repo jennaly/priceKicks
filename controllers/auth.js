@@ -75,8 +75,9 @@ exports.postSignup = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    req.logout(function(err) {
-        if (err)  { return res.render('error') };
-        res.redirect('/login')
-    })
+    req.logout(() => {
+        console.log('User has logged out.');
+        res.redirect('/')
+      })
+      
 }

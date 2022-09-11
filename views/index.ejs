@@ -10,8 +10,34 @@
     <title>PriceKicks</title>
 </head>
 <body>
-  <nav>
-    
+  <div class="container mx-auto px-5 py-4">
+    <header>
+      
+      <div class="navbar bg-base-100">
+        <div class="navbar-start">
+          <span class="uppercase"> <%= name %> </span>
+        </div>
+        <div class="navbar-center">
+          <a href="/" class="btn btn-ghost normal-case text-2xl">PriceKicks</a>
+        </div>
+        <div class="navbar-end">
+          <button class="btn btn-ghost btn-square btn-outline"><a href="/logout">Log out</a></button>
+        </div>
+      </div>
+      
+    </header>
+
+    <form action="/product" method='GET'>
+      <input type="text" placeholder="Enter Product SKU" name='sku' >
+      <input type="text" placeholder="Enter Product Size" name='size'>
+      <button type="submit" class="btn btn-ghost">Submit</button>
+    </form>
+ 
+   
+
+
+
+  </div>
 
 </body>
 </html>

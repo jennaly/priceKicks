@@ -7,22 +7,55 @@ module.exports.getStockXProduct = async (req, res) => {
     try {
        const productId = await getProductId(req.query.sku);
 
-       const productData = await getProductPrices(productId, req.query.size);
-
-       return res.json({
-        sku : req.query.sku,
-        size: req.query.size,
-        productId,
-        productData
-        })
-
-        // return res.render('index', ({
-        //     sku : req.query.sku,
-        //     size: req.query.size,
-        //     productId,
-        //     productData
-        // }))
+       const productData = await getProductData(productId);
+      
+       //only return relevant data (prices for the specified size)
+       const variants = productData.variants //array of variants
+       const sizeVariant = variants.filter(object => object.traits.size == req.query.size)
+        // console.log(sizeVariant[0].market)
+       console.log(sizeVariant)
+       console.log(sizeVariant.length)
        
+       //if data for the specified size exists, return it
+        if (sizeVariant.length > 0) {
+
+             // const lowestAsk = sizeVariant[0].market.bidAskData.lowestAsk
+            // const highestBid = sizeVariant[0].market.bidAskData.highestBid
+        
+        
+           return res.json({
+            sku : req.query.sku,
+            size: req.query.size,
+            productId,
+            productData,
+
+            })
+            
+              // return res.render('product', ({
+                //     sku : req.query.sku,
+                //     size: req.query.size,
+                //     productId,
+                //     productData,
+                //     lowestAsk,
+                //     highestBid
+                // }))
+
+        //if not, return error message
+        } else {
+            const noProductError = 'Sorry, no data';
+            return res.render('product', ({
+                sku : req.query.sku,
+                size: req.query.size,
+                productId,
+                productData,
+                noProductError,
+
+            }))
+            
+    
+            
+        }
+
     } catch (error) {
         console.error(error);
         return res.render('error');
@@ -74,7 +107,7 @@ async function getProductId(sku) {
 
 const STOCKX_API_URL = "https://stockx.com/api/p/e";
 
-async function getProductPrices(productId, productSize) {
+async function getProductData(productId) {
 
     const response = await axios(STOCKX_API_URL, {
         method: "POST",
