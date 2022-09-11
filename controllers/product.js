@@ -1,3 +1,4 @@
+const User = require('../models/User')
 const axios = require("axios");
 const qs = require("qs");
 const crypto = require("crypto");
@@ -5,6 +6,8 @@ const crypto = require("crypto");
 module.exports.getStockXProduct = async (req, res) => {
     
     try {
+        const user = await User.findOne({ _id: req.user.id }).lean();
+
        const productId = await getProductId(req.query.sku);
 
        const productData = await getProductData(productId);
@@ -12,33 +15,31 @@ module.exports.getStockXProduct = async (req, res) => {
        //only return relevant data (prices for the specified size)
        const variants = productData.variants //array of variants
        const sizeVariant = variants.filter(object => object.traits.size == req.query.size)
-        // console.log(sizeVariant[0].market)
-       console.log(sizeVariant)
-       console.log(sizeVariant.length)
+        //    console.log(sizeVariant[0].market)
+        //    console.log(sizeVariant)
+        //    console.log(sizeVariant.length)
        
        //if data for the specified size exists, return it
         if (sizeVariant.length > 0) {
+            //    return res.json({
+            //     sku : req.query.sku,
+            //     size: req.query.size,
+            //     productId,
+            //     productData,
 
-             // const lowestAsk = sizeVariant[0].market.bidAskData.lowestAsk
-            // const highestBid = sizeVariant[0].market.bidAskData.highestBid
-        
-        
-           return res.json({
-            sku : req.query.sku,
-            size: req.query.size,
-            productId,
-            productData,
-
-            })
+            //     })
+            const lowestAsk = sizeVariant[0].market.bidAskData.lowestAsk
+            const highestBid = sizeVariant[0].market.bidAskData.highestBid
             
-              // return res.render('product', ({
-                //     sku : req.query.sku,
-                //     size: req.query.size,
-                //     productId,
-                //     productData,
-                //     lowestAsk,
-                //     highestBid
-                // }))
+            return res.render('product', ({
+                name: user.name,
+                sku : req.query.sku,
+                size: req.query.size,
+                productId,
+                productData,
+                lowestAsk,
+                highestBid
+            }))
 
         //if not, return error message
         } else {
@@ -51,17 +52,12 @@ module.exports.getStockXProduct = async (req, res) => {
                 noProductError,
 
             }))
-            
-    
-            
         }
 
     } catch (error) {
         console.error(error);
         return res.render('error');
     }
-
-   
 }
 
 

@@ -1,37 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <title>PriceKicks</title>
+  <%- include('./partials/head'); %>
 </head>
 <body>
   <div class="container mx-auto px-5 py-4">
     <header>
-      
-      <div class="navbar bg-base-100">
-        <div class="navbar-start">
-          <span class="uppercase"> <%= name %> </span>
-        </div>
-        <div class="navbar-center">
-          <a href="/" class="btn btn-ghost normal-case text-2xl">PriceKicks</a>
-        </div>
-        <div class="navbar-end">
-          <button class="btn btn-ghost btn-square btn-outline"><a href="/logout">Log out</a></button>
-        </div>
-      </div>
-      
+      <%- include('./partials/header'); %>
     </header>
 
-    <form action="/product" method='GET'>
-      <input type="text" placeholder="Enter Product SKU" name='sku' >
-      <input type="text" placeholder="Enter Product Size" name='size'>
-      <button type="submit" class="btn btn-ghost">Submit</button>
-    </form>
+   <div>
+      <%- include('./partials/productSearchBar'); %>
+   </div>
  
    
 

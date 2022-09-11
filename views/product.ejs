@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <title>PriceKicks</title>
+    <%- include('./partials/head'); %>
 </head>
 <body>
-    <div class="flex flex-col items-center mt-4">
-        <h1> Product SKU: <%= sku %> </h1>
-        <span>Product Name: <%= productData.title %> </span>
+    <div class="container mx-auto px-5 py-4">
+        <header>
+            <%- include('./partials/header'); %>
+        </header>
         
-        
-        <% if (locals.noProductError) { %>
-            <span> <%= locals.noProductError %> </span>
-        <% } else { %>
-            <span>Lowest Ask: $<%= lowestAsk %> </span>
-            <span>Highest Bid: $<%= highestBid %> </span>
-         <% } %>
+        <div>
+            <%- include('./partials/productSearchBar'); %>
+         </div>
+         
+        <div class="flex flex-col items-center mt-4">
+            <h1> Product SKU: <%= sku %> </h1>
+            <span>Product Name: <%= productData.title %> </span>
+            <span>Size: <%= size %> </span>
+            
+            <% if (locals.noProductError) { %>
+                <span> <%= locals.noProductError %> </span>
+            <% } else { %>
+                <span>Lowest Ask: $<%= lowestAsk %> </span>
+                <span>Highest Bid: $<%= highestBid %> </span>
+            <% } %>
 
 
+        </div>
     </div>
-    
 
 </body>
 </html>
