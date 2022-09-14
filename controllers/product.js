@@ -2,11 +2,12 @@ const User = require('../models/User')
 const FavoriteProduct = require('../models/FavoriteProduct')
 const axios = require("axios");
 const qs = require("qs");
+const Hero = require('@ulixee/hero-playground');
 const crypto = require("crypto");
 
 module.exports.saveProduct = async (req, res) => {
     try {
-        await FavoriteProduct.create({ sku: req.body.sku, size: req.body.size, imageUrl: req.body.imageUrl, productName: req.body.productName, user: req.user.id })
+        await FavoriteProduct.create({ sku: req.body.sku, imageUrl: req.body.imageUrl, productName: req.body.productName, user: req.user.id })
 
         res.redirect('/')
     } catch (err) {
@@ -21,52 +22,27 @@ module.exports.getStockXProduct = async (req, res) => {
        const productId = await getProductId(req.query.sku);
 
        const productData = await getProductData(productId);
-      
-       //only return relevant data (prices for the specified size)
-       const variants = productData.variants //array of variants
-       const sizeVariant = variants.filter(object => object.traits.size == req.query.size)
-        //    console.log(sizeVariant[0].market)
-        //    console.log(sizeVariant)
-        //    console.log(sizeVariant.length)
-       
-       //if data for the specified size exists, return it
-        if (sizeVariant.length > 0) {
-            //    return res.json({
-            //     sku : req.query.sku,
-            //     size: req.query.size,
-            //     productId,
-            //     productData,
 
-            //     })
-            const lowestAsk = sizeVariant[0].market.bidAskData.lowestAsk
-            const highestBid = sizeVariant[0].market.bidAskData.highestBid
-            const productImageUrl = productData.media.imageUrl
-            
+       const variants = productData.variants
+       const productImageUrl = productData.media.imageUrl
+             
 
+    //    return res.json({
+    //     sku: req.query.sku,
+    //     productId,
+    //     productData,
+    //     productImageUrl
+    //     })
 
-            return res.render('product', ({
-                name: user.name,
-                sku : req.query.sku,
-                size: req.query.size,
-                productId,
-                productData,
-                lowestAsk,
-                highestBid,
-                productImageUrl 
-            }))
-
-        //if not, return error message
-        } else {
-            const noProductError = 'Sorry, no data';
-            return res.render('product', ({
-                sku : req.query.sku,
-                size: req.query.size,
-                productId,
-                productData,
-                noProductError,
-
-            }))
-        }
+        return res.render('product', ({
+            name: user.name,
+            sku:req.query.sku,
+            productId,
+            productData,
+            variants,
+            productImageUrl
+        }))
+  
 
     } catch (error) {
         console.error(error);
@@ -156,4 +132,81 @@ async function getProductData(productId) {
     
     return product;
 
+}
+
+async function runGoatSearch (sku) {
+    
+    const GOAT_SEARCH_URL = `https://ac.cnstrc.com/search/${sku}`;
+
+    const response = await axios(GOAT_SEARCH_URL, {
+        method: "GET",
+        headers: {
+            'accept': '*/*',
+            'accept-encoding': 'gzip, deflate, br',
+            'accept-language': 'en-US,en;q=0.9',
+            'origin': 'https://www.goat.com',
+            'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'cross-site',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
+        },
+        params: {
+            'c': 'ciojs-client-2.29.9',
+            'key': 'key_XT7bjdbvjgECO5d8',
+            'i': '6a6ab6e8-986d-45a0-bc1b-da443fa0133c',
+            's': 30,
+            'num_results_per_page': 25,
+            '_dt' : Date.now()
+        },
+        paramsSerializer: params => {
+            return qs.stringify(params)
+        },
+    });
+    // response body
+    const data = await response.data;
+   
+    const productData = data.response.results[0].data
+    
+    
+    return {
+        id: productData.id,
+        slug: productData.slug,
+        image: productData.image_url,
+        name: data.response.results[0].value,
+    };
+};
+
+
+async function getPageData (productLink) {
+    const hero = new Hero();
+    await hero.goto(productLink);
+    const nextData = await hero.document.querySelector('#__NEXT_DATA__').textContent;
+    const parsedData = JSON.parse(nextData);
+    
+    await hero.close();
+
+    return parsedData;
+}
+
+module.exports.getGoatProduct = async (req, res) => {
+    try {
+
+        const productMetadata = await runGoatSearch(req.query.sku);
+
+        const productLink = `https://www.goat.com/sneakers/${productMetadata.slug}`;
+
+        const variantData = await getPageData(productLink);
+
+        res.json({
+            productMetadata,
+            variantData,
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.render('error');
+    }
 }

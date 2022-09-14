@@ -4,96 +4,50 @@
     <%- include('./partials/head'); %>
 </head>
 <body>
-    <div class="container mx-auto px-5 py-4 flex flex-col">
+    <div class="container mx-auto px-5 py-4">
         <header>
             <%- include('./partials/header'); %>
         </header>
-        
-        <div class="grid grid-cols-3 gap-4">
-            <div class="left-content col-span-1">
-                <div>
-                    <%- include('./partials/productSearchBar'); %>
-                </div>
 
-            </div>
-
-            <div class="right-content col-span-2">
-                <div class="card mx-auto bg-blue-300 dark:bg-blue-900 shadow-xl mb-4 mt-6">
-                    
-                    <div class="flex flex-col items-center mt-4">
-                        <img src="<%= productImageUrl  %>" alt="<%= productData.title %>" class="rounded-md w-1/2">  
-                        <h1 > Product SKU: <%= sku %> </h1>
-                        <span>Product Name: <%= productData.title %> </span>
-                        <span>Size: <%= size %> </span>
-                    </div>
-
-
-                    <div class="flex flex-wrap">
-                        <div class="card-body">
-                            <div class="flex flex-col items-center ">
-                                
-                                
-                                <% if (locals.noProductError) { %>
-                                    <span> <%= locals.noProductError %> </span>
-                                <% } else { %>
-
-                                    <% if (lowestAsk != null) { %>
-                                        <span>Lowest Ask: $<%= lowestAsk %> </span>
-
-                                    <% } else { %>
-                                        <span>Lowest Ask: None %> </span>
-                                    <% } %>
-
-                                    <% if (highestBid != null) { %>
-                                        <span>Highest Bid: $<%= highestBid %> </span>
-                                    <% } else { %>
-                                        <span>Highest Bid: None %> </span>
-                                    <% } %>
-
-                                <% } %>
-                                
-                            </div>
-                        </div>
-
-
-                        <div class="card-body">
-                            <div class="flex flex-col items-center ">
-                                
-                                <% if (locals.noProductError) { %>
-                                    <span> <%= locals.noProductError %> </span>
-                                <% } else { %>
-
-                                    <% if (lowestAsk != null) { %>
-                                        <span>Lowest Ask: $<%= lowestAsk %> </span>
-                                    <% } else { %>
-                                        <span>Lowest Ask: None %> </span>
-                                    <% } %>
-
-                                    <% if (highestBid != null) { %>
-                                        <span>Highest Bid: $<%= highestBid %> </span>
-                                    <% } else { %>
-                                        <span>Highest Bid: None %> </span>
-                                    <% } %>
-
-                                <% } %>
-                                    
-                            </div>
-                        </div>
-                    </div>
-
-                    <form action="/product" method="POST">
-                        <input name="sku" type="hidden" value="<%= sku %>" />
-                        <input name="productName" type="hidden" value="<%= productData.title %>">
-                        <input name="size" type="hidden" value=" <%= size %>">
-                        <input name="imageUrl" type="hidden" value= "<%= productImageUrl  %>">
-                        
-                        <button type="submit" class="btn bg-blue-900 dark:bg-blue-500 hover:dark:bg-blue-400 dark:text-slate-300 btn-block space-x-2 mt-2">Save Product</button>
-                    </form>
-
-
-                </div>
-            </div>
+        <div>
+            <%- include('./partials/productSearchBar'); %>
         </div>
+
+        <div class="overflow-x-auto">
+            <table class="table w-full">
+              <!-- head -->
+              <thead>
+                <tr>
+                <th></th>
+                <% variants.forEach(variant => { %>
+                    <th> <%= variant.traits.size %> </th>
+                <% }) %>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- StockX Row -->
+                <tr>
+                  <th>StockX</th>
+                  <% variants.forEach(variant => { %>
+                    <% if (variant.market.bidAskData.lowestAsk == null) { %>
+                        <th> -- </th>
+                    <% } else { %>
+                        <th> $<%= variant.market.bidAskData.lowestAsk %> </th>
+                    <% } %>
+                  <% }) %>
+                </tr>
+                <!-- Goat Row -->
+                <tr>
+                    <th>Goat</th>
+                    <!--note: on the server side, filter goat products by "new no defects" and "good condition"-->
+                    <!-- for each stock x variant size,  check if the stockStatus property on the object of the corresponding size value is "in stock", if it is then return the lowestPriceCents property  -->
+                    <!--if status is not_in_stock then return "--" -->
+
+                  </tr>
+            </table>
+        </div>
+        
+       
     </div>
 
 </body>

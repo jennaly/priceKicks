@@ -9,10 +9,6 @@ const FavoriteProductSchema = new Mongoose.Schema({
         type: String,
         required: true,
     },
-    size: {
-        type: String,
-        required: true,
-    },
     productName: {
         type: String,
         required: true,

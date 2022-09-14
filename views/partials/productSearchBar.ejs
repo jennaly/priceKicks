@@ -1,14 +1,10 @@
-<div class="card  bg-blue-300 dark:bg-blue-900 mx-auto shadow-xl mb-4 mt-6">
+<div class="card max-w-xs bg-blue-300 dark:bg-blue-900 mx-auto shadow-xl mb-4 mt-6">
     <div class="card-body">
         <form action="/product" method='GET' >
             <div class="flex flex-col">
                 <div class="flex justify-between place-items-center my-2">
-                    <label for="sku" class="label-text text-sm uppercase font-semibold dark:text-slate-300">Enter Product SKU</label> 
+                    <label for="sku" class="label-text text-sm uppercase font-semibold dark:text-slate-300">Product SKU</label> 
                     <input type="text" placeholder="CP9652" name='sku' class="text-center w-5/12 rounded-md" required>
-                </div>
-                <div class="flex justify-between place-items-center my-2">
-                    <label for="size" class="label-text text-sm uppercase font-semibold dark:text-slate-300">Enter Product Size</label>
-                    <input type="text" placeholder="10" name='size' class="text-center w-5/12 rounded-md"  required>
                 </div>
             </div>
             <button type="submit" class="btn bg-blue-900 dark:bg-blue-500 hover:dark:bg-blue-400 dark:text-slate-300 btn-block space-x-2 mt-2">See Product</button>
