@@ -1,8 +1,18 @@
 const User = require('../models/User')
+const FavoriteProduct = require('../models/FavoriteProduct')
 const axios = require("axios");
 const qs = require("qs");
 const crypto = require("crypto");
 
+module.exports.saveProduct = async (req, res) => {
+    try {
+        await FavoriteProduct.create({ sku: req.body.sku, size: req.body.size, imageUrl: req.body.imageUrl, productName: req.body.productName, user: req.user.id })
+
+        res.redirect('/')
+    } catch (err) {
+        console.log(err)
+    }
+}
 module.exports.getStockXProduct = async (req, res) => {
     
     try {
@@ -30,7 +40,10 @@ module.exports.getStockXProduct = async (req, res) => {
             //     })
             const lowestAsk = sizeVariant[0].market.bidAskData.lowestAsk
             const highestBid = sizeVariant[0].market.bidAskData.highestBid
+            const productImageUrl = productData.media.imageUrl
             
+
+
             return res.render('product', ({
                 name: user.name,
                 sku : req.query.sku,
@@ -38,7 +51,8 @@ module.exports.getStockXProduct = async (req, res) => {
                 productId,
                 productData,
                 lowestAsk,
-                highestBid
+                highestBid,
+                productImageUrl 
             }))
 
         //if not, return error message

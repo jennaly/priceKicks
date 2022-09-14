@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark:bg-black">
 <head>
     <%- include('./partials/head'); %>
 </head>
@@ -9,33 +9,90 @@
             <%- include('./partials/header'); %>
         </header>
         
-        <div>
-            <%- include('./partials/productSearchBar'); %>
-        </div>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="left-content col-span-1">
+                <div>
+                    <%- include('./partials/productSearchBar'); %>
+                </div>
+
+            </div>
+
+            <div class="right-content col-span-2">
+                <div class="card mx-auto bg-blue-300 dark:bg-blue-900 shadow-xl mb-4 mt-6">
+                    
+                    <div class="flex flex-col items-center mt-4">
+                        <img src="<%= productImageUrl  %>" alt="<%= productData.title %>" class="rounded-md w-1/2">  
+                        <h1 > Product SKU: <%= sku %> </h1>
+                        <span>Product Name: <%= productData.title %> </span>
+                        <span>Size: <%= size %> </span>
+                    </div>
 
 
-        <div class="flex flex-col items-center mt-4">
-            <h1> Product SKU: <%= sku %> </h1>
-            <span>Product Name: <%= productData.title %> </span>
-            <span>Size: <%= size %> </span>
-            
-            <% if (locals.noProductError) { %>
-                <span> <%= locals.noProductError %> </span>
-            <% } else { %>
+                    <div class="flex flex-wrap">
+                        <div class="card-body">
+                            <div class="flex flex-col items-center ">
+                                
+                                
+                                <% if (locals.noProductError) { %>
+                                    <span> <%= locals.noProductError %> </span>
+                                <% } else { %>
 
-                <% if (lowestAsk != null) { %>
-                    <span>Lowest Ask: $<%= lowestAsk %> </span>
-                <% } else { %>
-                    <span>Lowest Ask: None %> </span>
-                <% } %>
+                                    <% if (lowestAsk != null) { %>
+                                        <span>Lowest Ask: $<%= lowestAsk %> </span>
 
-                <% if (highestBid != null) { %>
-                    <span>Highest Bid: $<%= highestBid %> </span>
-                <% } else { %>
-                    <span>Highest Bid: None %> </span>
-                <% } %>
+                                    <% } else { %>
+                                        <span>Lowest Ask: None %> </span>
+                                    <% } %>
 
-            <% } %>
+                                    <% if (highestBid != null) { %>
+                                        <span>Highest Bid: $<%= highestBid %> </span>
+                                    <% } else { %>
+                                        <span>Highest Bid: None %> </span>
+                                    <% } %>
+
+                                <% } %>
+                                
+                            </div>
+                        </div>
+
+
+                        <div class="card-body">
+                            <div class="flex flex-col items-center ">
+                                
+                                <% if (locals.noProductError) { %>
+                                    <span> <%= locals.noProductError %> </span>
+                                <% } else { %>
+
+                                    <% if (lowestAsk != null) { %>
+                                        <span>Lowest Ask: $<%= lowestAsk %> </span>
+                                    <% } else { %>
+                                        <span>Lowest Ask: None %> </span>
+                                    <% } %>
+
+                                    <% if (highestBid != null) { %>
+                                        <span>Highest Bid: $<%= highestBid %> </span>
+                                    <% } else { %>
+                                        <span>Highest Bid: None %> </span>
+                                    <% } %>
+
+                                <% } %>
+                                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action="/product" method="POST">
+                        <input name="sku" type="hidden" value="<%= sku %>" />
+                        <input name="productName" type="hidden" value="<%= productData.title %>">
+                        <input name="size" type="hidden" value=" <%= size %>">
+                        <input name="imageUrl" type="hidden" value= "<%= productImageUrl  %>">
+                        
+                        <button type="submit" class="btn bg-blue-900 dark:bg-blue-500 hover:dark:bg-blue-400 dark:text-slate-300 btn-block space-x-2 mt-2">Save Product</button>
+                    </form>
+
+
+                </div>
+            </div>
         </div>
     </div>
 
