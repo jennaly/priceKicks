@@ -19,22 +19,23 @@
               <thead>
                 <tr>
                 <th></th>
-                <% variants.forEach(variant => { %>
-                    <th> <%= variant.traits.size %> </th>
-                <% }) %>
+                <% if (goatSizes) { %>
+                    <% goatSizes.forEach(size => { %>
+                        <th> <%= size %> </th>
+                    <% }) %>
+                <% } else { %> 
+                    <% variants.forEach(variant => { %>
+                        <th> <%= variant.traits.size %> </th>
+                    <% }) %>
+                <% } %>
                 </tr>
               </thead>
               <tbody>
                 <!-- StockX Row -->
                 <tr>
                   <th>StockX</th>
-                  <% variants.forEach(variant => { %>
-                    <% if (variant.market.bidAskData.lowestAsk == null) { %>
-                        <th> -- </th>
-                    <% } else { %>
-                        <th> $<%= variant.market.bidAskData.lowestAsk %> </th>
-                    <% } %>
-                  <% }) %>
+                  <th></th>
+                  <th></th>
                 </tr>
                 <!-- Goat Row -->
                 <tr>

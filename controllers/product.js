@@ -7,7 +7,12 @@ const crypto = require("crypto");
 
 module.exports.saveProduct = async (req, res) => {
     try {
-        await FavoriteProduct.create({ sku: req.body.sku, imageUrl: req.body.imageUrl, productName: req.body.productName, user: req.user.id })
+        await FavoriteProduct.create({ 
+            sku: req.body.sku, 
+            imageUrl: req.body.imageUrl, 
+            productName: req.body.productName, 
+            user: req.user.id 
+        })
 
         res.redirect('/')
     } catch (err) {
@@ -24,7 +29,7 @@ module.exports.getStockXProduct = async (req, res) => {
        const productData = await getProductData(productId);
 
        const variants = productData.variants
-       const productImageUrl = productData.media.imageUrl
+    //    const productImageUrl = productData.media.imageUrl
              
 
     //    return res.json({
@@ -39,8 +44,7 @@ module.exports.getStockXProduct = async (req, res) => {
             sku:req.query.sku,
             productId,
             productData,
-            variants,
-            productImageUrl
+            variants
         }))
   
 
@@ -194,19 +198,32 @@ async function getPageData (productLink) {
 module.exports.getGoatProduct = async (req, res) => {
     try {
 
+        const user = await User.findOne({ _id: req.user.id }).lean();
+
         const productMetadata = await runGoatSearch(req.query.sku);
 
         const productLink = `https://www.goat.com/sneakers/${productMetadata.slug}`;
 
-        const variantData = await getPageData(productLink);
+        const goatVariantData = await getPageData(productLink);
 
-        res.json({
+        const goatSizes = goatVariantData.props.pageProps.productTemplate.sizeRange
+
+        return res.render('product', ({
+            name: user.name,
+            sku:req.query.sku,
             productMetadata,
-            variantData,
-        });
+            goatSizes
+            
+        }))
+
+        // return res.json({
+        //     productMetadata,
+        //     goatSizes
+        // });
 
     } catch (err) {
         console.error(err);
         return res.render('error');
     }
 }
+
