@@ -24,11 +24,13 @@ module.exports.getStockXProduct = async (req, res) => {
     try {
         const user = await User.findOne({ _id: req.user.id }).lean();
 
-       const productId = await getProductId(req.query.sku);
+        const productId = await getProductId(req.query.sku);
 
-       const productData = await getProductData(productId);
+        const productData = await getProductData(productId);
 
-       const variants = productData.variants
+        const variants = productData.variants
+
+        console.log(variants)
     //    const productImageUrl = productData.media.imageUrl
              
 
@@ -38,6 +40,7 @@ module.exports.getStockXProduct = async (req, res) => {
     //     productData,
     //     productImageUrl
     //     })
+        
 
         return res.render('product', ({
             name: user.name,
@@ -46,6 +49,9 @@ module.exports.getStockXProduct = async (req, res) => {
             productData,
             variants
         }))
+
+        
+
   
 
     } catch (error) {
@@ -208,11 +214,16 @@ module.exports.getGoatProduct = async (req, res) => {
 
         const goatSizes = goatVariantData.props.pageProps.productTemplate.sizeRange
 
+        const goatVariants = goatVariantData.props.pageProps.offers.offerData
+
+        console.log(goatVariants[1])
+
         return res.render('product', ({
             name: user.name,
             sku:req.query.sku,
             productMetadata,
-            goatSizes
+            goatSizes,
+            goatVariants
             
         }))
 
