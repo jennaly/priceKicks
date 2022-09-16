@@ -203,7 +203,7 @@ async function getPageData (productLink) {
     return parsedData;
 }
 
-module.exports.getGoatProduct = async (req, res) => {
+module.exports.getGoatProduct = async (req, res, next) => {
     try {
 
         const goatUser = await User.findOne({ _id: req.user.id }).lean();
@@ -231,14 +231,15 @@ module.exports.getGoatProduct = async (req, res) => {
         // }))
 
 
-        return res.json({
-            ...req.stockXData,
+        req.goatData = {
             goatUserName: goatUser.name,
             goatSku:req.query.sku,
             goatProductMetadata,
             goatSizes,
             goatVariants
-        });
+        };
+
+        return next()
        
 
         // return res.json({
@@ -252,3 +253,6 @@ module.exports.getGoatProduct = async (req, res) => {
     }
 }
 
+module.exports.getPrices = async (req, res) => {
+    
+}
