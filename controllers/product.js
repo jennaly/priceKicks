@@ -19,18 +19,20 @@ module.exports.saveProduct = async (req, res) => {
         console.log(err)
     }
 }
-module.exports.getStockXProduct = async (req, res) => {
+module.exports.getStockXProduct = async (req, res, next) => {
     
     try {
-        const user = await User.findOne({ _id: req.user.id }).lean();
+        const stockXUser = await User.findOne({ _id: req.user.id }).lean();
 
-        const productId = await getProductId(req.query.sku);
+        const stockXProductId = await getProductId(req.query.sku);
 
-        const productData = await getProductData(productId);
+        const stockXProductData = await getProductData(stockXProductId);
 
-        const variants = productData.variants
+        const stockXVariants = stockXProductData.variants;
 
-        console.log(variants)
+
+
+        
     //    const productImageUrl = productData.media.imageUrl
              
 
@@ -40,16 +42,16 @@ module.exports.getStockXProduct = async (req, res) => {
     //     productData,
     //     productImageUrl
     //     })
+        req.stockXData = {
+            stockXUserName: stockXUser.name,
+            stockXSku: req.query.sku,
+            stockXProductId,
+            stockXProductData,
+            stockXVariants
+        };
+
         
-
-        return res.render('product', ({
-            name: user.name,
-            sku:req.query.sku,
-            productId,
-            productData,
-            variants
-        }))
-
+        return next();
         
 
   
@@ -204,28 +206,40 @@ async function getPageData (productLink) {
 module.exports.getGoatProduct = async (req, res) => {
     try {
 
-        const user = await User.findOne({ _id: req.user.id }).lean();
+        const goatUser = await User.findOne({ _id: req.user.id }).lean();
 
-        const productMetadata = await runGoatSearch(req.query.sku);
+        const goatProductMetadata = await runGoatSearch(req.query.sku);
 
-        const productLink = `https://www.goat.com/sneakers/${productMetadata.slug}`;
+        const goatProductLink = `https://www.goat.com/sneakers/${goatProductMetadata.slug}`;
 
-        const goatVariantData = await getPageData(productLink);
+        const goatVariantData = await getPageData(goatProductLink);
 
         const goatSizes = goatVariantData.props.pageProps.productTemplate.sizeRange
 
         const goatVariants = goatVariantData.props.pageProps.offers.offerData
 
-        console.log(goatVariants[1])
 
-        return res.render('product', ({
-            name: user.name,
-            sku:req.query.sku,
-            productMetadata,
+
+        // return res.render('product', ({
+            // ...req.stockXData,
+            // goatUserName: goatUser.name,
+            // goatSku:req.query.sku,
+            // goatProductMetadata,
+            // goatSizes,
+            // goatVariants
+            
+        // }))
+
+
+        return res.json({
+            ...req.stockXData,
+            goatUserName: goatUser.name,
+            goatSku:req.query.sku,
+            goatProductMetadata,
             goatSizes,
             goatVariants
-            
-        }))
+        });
+       
 
         // return res.json({
         //     productMetadata,

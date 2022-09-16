@@ -18,40 +18,29 @@
               <!-- head -->
               <thead>
                 <tr>
-                <th></th>
-                <% if (goatSizes) { %>
-                    <% goatSizes.forEach(size => { %>
-                        <th> <%= size %> </th>
-                    <% }) %>
-                <% } else { %> 
-                    <% variants.forEach(variant => { %>
-                        <th> <%= variant.traits.size %> </th>
-                    <% }) %>
-                <% } %>
+                    <th></th>
+                    
+                    <% if (goatSizes) { %>
+                        <% goatSizes.forEach(size => { %>
+                            <th> <%= size %> </th>
+                        <% }) %>
+                    <% } else { %> 
+                        <% stockXVariants.forEach(variant => { %>
+                            <th> <%= variant.traits.size %> </th>
+                        <% }) %>
+                    <% } %>
                 </tr>
               </thead>
               <tbody>
                 <!-- StockX Row -->
                 <tr>
                     <th>StockX</th>
-                    
+                   
                 </tr>
                 <!-- Goat Row -->
                 <tr>
                     <th>Goat</th>
-                    <% if (goatSizes) { %>
-                        <% goatSizes.forEach(size => { %>
-                            
-                            <% for (let i = 0; i < goatVariants.length; i++) { %>
-                                <% if (goatVariants[i].size == size) { %>
-                                    <th> <%= goatVariants[i].price %> </th>
-                                <% } %> else { %>
-                                    <th>--</th>
-                                <% } %>
-                            <% } %>
-
-                        <% }) %> 
-                    <% } %> 
+            
                     <!--note: on the server side, filter goat products by "new no defects" and "good condition"-->
                     <!-- for each stock x variant size,  check if the stockStatus property on the object of the corresponding size value is "in stock", if it is then return the lowestPriceCents property  -->
                     <!--if status is not_in_stock then return "--" -->
