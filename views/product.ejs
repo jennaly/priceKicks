@@ -13,15 +13,14 @@
             <%- include('./partials/productSearchBar'); %>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto rounded-md" >
             <table class="table w-full">
               <!-- head -->
               <thead>
                 <tr>
                     <th></th>
-                    
                     <% for (let i = 0; i < sizeRange.length; i++) { %>
-                        <th> <%=sizeRange[i] %> </th>
+                        <th class="text-center"> <%=sizeRange[i] %> </th>
                     <% } %>
                 </tr>
               </thead>
@@ -35,7 +34,7 @@
                             <% if (correspondingStockXVariant.market.bidAskData.lowestAsk == null) { %>
                                 <th> -- </th>
                             <% } else { %>
-                                <th> <%=correspondingStockXVariant.market.bidAskData.lowestAsk%> </th>
+                                <th> $<%=correspondingStockXVariant.market.bidAskData.lowestAsk%>.00 </th>
                             <% } %>
                         <% } else { %>
                             <th> -- </th>
@@ -48,7 +47,7 @@
                     <% for (let i = 0; i < sizeRange.length; i++) { %>
                         <% let correspondingGoatVariant = goatVariants.find(variant => variant.size == sizeRange[i]) %>
                         <% if (correspondingGoatVariant !== undefined) { %>
-                            <th> <%=correspondingGoatVariant.price%> </th>
+                            <th> $<%=correspondingGoatVariant.price%> </th>
                         <% } else { %>
                             <th> -- </th>
                         <% } %>
