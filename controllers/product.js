@@ -43,14 +43,13 @@ module.exports.getStockXProduct = async (req, res, next) => {
     //     productImageUrl
     //     })
         req.stockXData = {
-            stockXUserName: stockXUser.name,
+            stockXUser,
             stockXSku: req.query.sku,
-            stockXProductId,
-            stockXProductData,
+            // stockXProductData,
             stockXVariants
         };
 
-        
+        console.log('1')
         return next();
         
 
@@ -193,8 +192,12 @@ async function runGoatSearch (sku) {
 
 
 async function getPageData (productLink) {
-    const hero = new Hero();
+    
+    const hero = new Hero({
+        blockedResourceTypes: ["All"]
+    });
     await hero.goto(productLink);
+    await hero.waitForPaintingStable();
     const nextData = await hero.document.querySelector('#__NEXT_DATA__').textContent;
     const parsedData = JSON.parse(nextData);
     
@@ -214,7 +217,7 @@ module.exports.getGoatProduct = async (req, res, next) => {
 
         const goatVariantData = await getPageData(goatProductLink);
 
-        const goatSizes = goatVariantData.props.pageProps.productTemplate.sizeRange
+        const allProductSizes = goatVariantData.props.pageProps.productTemplate.sizeRange
 
         const goatVariants = goatVariantData.props.pageProps.offers.offerData
 
@@ -232,13 +235,12 @@ module.exports.getGoatProduct = async (req, res, next) => {
 
 
         req.goatData = {
-            goatUserName: goatUser.name,
+            goatUser,
             goatSku:req.query.sku,
             goatProductMetadata,
-            goatSizes,
+            allProductSizes,
             goatVariants
         };
-
         return next()
        
 
@@ -253,6 +255,84 @@ module.exports.getGoatProduct = async (req, res, next) => {
     }
 }
 
-module.exports.getPrices = async (req, res) => {
+module.exports.getPrices = (req, res) => {
+    console.log('done')
+    let userName = req.stockXData.stockXUser.name;
+    let sizeRange = req.goatData.allProductSizes;
+    let stockXVariants = req.stockXData.stockXVariants;
+    let goatVariants = req.goatData.goatVariants;
     
+    // return res.json({ 
+    //     ...goatVariants
+    // })
+    return res.render('product', {
+        userName,
+        sizeRange,
+        stockXVariants,
+        goatVariants
+    })
+    // let userName
+    // let sizeRange 
+
+
+    // //if neither stockX data or Goat data exists, render view with error message - no product
+    // if (!req.stockXData && !req.goatData) {
+    //     return res.render('productErrorPage')
+    // } 
+
+    // //if stockXData doesn't exist, render view intended for only data from Goat
+    // if (!req.stockXData) {
+    //     userName =  goatUser.name;
+
+    //     return res.render('productGoatOnly', {
+    //         userName,
+    //         ...req.goatData
+    //     })
+    // }
+
+    // //if goatData doesn't exist, render view intended for only data from StockX  
+    // if (!req.goatData) {
+    //     userName =  stockXUser.name;
+
+
+    //     return res.render('productStockXOnly', {
+    //         userName,
+    //         ...req.stockXData
+    //     })
+    // }
+    
+    // //if both goatData and stockXData exist:
+
+    //decides whether to set stockX or Goat size range as the headers for the table
+    // if (req.stockXData.stockXVariants.length > req.goatData.goatVariants.length) {
+      
+    //     sizeRange = req.stockXData.stockXVariants;
+    //     return res.render('product', {
+    //         ...req.stockXData,
+    //         // ...req.goatData,
+    //         sizeRange,
+    //         userName
+    //     })
+    // } else {
+    //     userName =  req.goatData.goatUser.name;
+    //     sizeRange = req.goatData.goatVariants;
+    //     return res.render('product', {
+    //         // ...req.stockXData,
+    //         ...req.goatData,
+    //         sizeRange,
+    //         userName
+    //     })
+      
+    // }
+    // userName = req.goatData.goatUser.name;
+    // sizeRange = req.goatData.allProductSizes
+    // console.log(sizeRange)
+    // return res.render('product', {
+    //     userName,
+    //     sizeRange
+    // })
+
+   
+
+
 }

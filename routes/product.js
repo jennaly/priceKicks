@@ -4,7 +4,7 @@ const productController = require('../controllers/product')
 const { ensureAuth, ensureGuest } = require('../middleware/auth');
 
 
-router.get('/', ensureAuth, productController.getStockXProduct, productController.getGoatProduct);
+router.get('/', ensureAuth, productController.getStockXProduct, productController.getGoatProduct, productController.getPrices);
 
 router.post('/', productController.saveProduct )
 
