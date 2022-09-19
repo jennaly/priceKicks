@@ -13,6 +13,39 @@
             <%- include('./partials/productSearchBar'); %>
         </div>
 
+        <div>
+            <div class="card bg-blue-300 dark:bg-blue-900 mx-auto shadow-xl mb-4 mt-6">
+                <div class="card-body">
+                    <div class="overflow-x-auto w-full">
+                        <table class="table w-full">
+                          <tbody>
+                            <% for (let i = 0; i < favoriteProducts.length; i++) { %>
+                                <tr>
+                                    <td>
+                                      <div class="flex items-center space-x-3">
+                                        <div class="avatar">
+                                          <div class="mask mask-squircle w-12 h-12">
+                                            <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
+                                          </div>
+                                        </div>
+                                        <div>
+                                          <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
+                                          <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <th>
+                                      <button class="btn btn-ghost btn-xs">Remove</button>
+                                    </th>
+                                </tr>
+                            <% } %>
+                          </tbody>
+                        </table>
+                      </div>                        
+                </div>
+            </div>
+        </div>
+
         <div class="overflow-x-auto rounded-md" >
             <div class="card lg:card-side bg-base-100 shadow-xl">
                 <figure><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>"/></figure>
@@ -35,7 +68,7 @@
                 <tr>
                     <th></th>
                     <% for (let i = 0; i < sizeRange.length; i++) { %>
-                        <th class="text-center"> <%=sizeRange[i] %> </th>
+                        <th class="text-center"> <%= sizeRange[i] %> </th>
                     <% } %>
                 </tr>
               </thead>
@@ -49,7 +82,7 @@
                             <% if (correspondingStockXVariant.market.bidAskData.lowestAsk == null) { %>
                                 <th> -- </th>
                             <% } else { %>
-                                <th> $<%=correspondingStockXVariant.market.bidAskData.lowestAsk%>.00 </th>
+                                <th> $<%= correspondingStockXVariant.market.bidAskData.lowestAsk %>.00 </th>
                             <% } %>
                         <% } else { %>
                             <th> -- </th>
@@ -62,7 +95,7 @@
                     <% for (let i = 0; i < sizeRange.length; i++) { %>
                         <% let correspondingGoatVariant = goatVariants.find(variant => variant.size == sizeRange[i]) %>
                         <% if (correspondingGoatVariant !== undefined) { %>
-                            <th> $<%=correspondingGoatVariant.price%> </th>
+                            <th> $<%= correspondingGoatVariant.price %> </th>
                         <% } else { %>
                             <th> -- </th>
                         <% } %>
