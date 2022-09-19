@@ -257,19 +257,23 @@ module.exports.getGoatProduct = async (req, res, next) => {
 
 module.exports.getPrices = (req, res) => {
     console.log('done')
-    let userName = req.stockXData.stockXUser.name;
+    let userName = req.goatData.goatUser.name;
+    let goatSku = req.goatData.goatSku;
     let sizeRange = req.goatData.allProductSizes;
     let stockXVariants = req.stockXData.stockXVariants;
     let goatVariants = req.goatData.goatVariants;
+    let goatProductMetadata = req.goatData.goatProductMetadata;
     
     // return res.json({ 
     //     ...goatVariants
     // })
     return res.render('product', {
         userName,
+        goatSku,
         sizeRange,
         stockXVariants,
-        goatVariants
+        goatVariants,
+        goatProductMetadata
     })
     // let userName
     // let sizeRange 

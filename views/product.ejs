@@ -14,6 +14,16 @@
         </div>
 
         <div class="overflow-x-auto rounded-md" >
+            <div class="card lg:card-side bg-base-100 shadow-xl">
+                <figure><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>"/></figure>
+                <div class="card-body">
+                  <h2 class="card-title"> <%= goatProductMetadata.name %> </h2>
+                  <p> <%= goatSku %> </p>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-primary">Save to Favorites</button>
+                  </div>
+                </div>
+              </div>
             <table class="table w-full">
               <!-- head -->
               <thead>
