@@ -13,37 +13,46 @@
             <%- include('./partials/productSearchBar'); %>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto rounded-md" >
             <table class="table w-full">
               <!-- head -->
               <thead>
                 <tr>
-                <th></th>
-                <% variants.forEach(variant => { %>
-                    <th> <%= variant.traits.size %> </th>
-                <% }) %>
+                    <th></th>
+                    <% for (let i = 0; i < sizeRange.length; i++) { %>
+                        <th class="text-center"> <%=sizeRange[i] %> </th>
+                    <% } %>
                 </tr>
               </thead>
               <tbody>
                 <!-- StockX Row -->
                 <tr>
-                  <th>StockX</th>
-                  <% variants.forEach(variant => { %>
-                    <% if (variant.market.bidAskData.lowestAsk == null) { %>
-                        <th> -- </th>
-                    <% } else { %>
-                        <th> $<%= variant.market.bidAskData.lowestAsk %> </th>
+                    <th>StockX</th>
+                    <% for (let i = 0; i < sizeRange.length; i++) { %>
+                        <% let correspondingStockXVariant = stockXVariants.find(variant => variant.traits.size == sizeRange[i]) %>
+                        <% if (correspondingStockXVariant !== undefined) { %>
+                            <% if (correspondingStockXVariant.market.bidAskData.lowestAsk == null) { %>
+                                <th> -- </th>
+                            <% } else { %>
+                                <th> $<%=correspondingStockXVariant.market.bidAskData.lowestAsk%>.00 </th>
+                            <% } %>
+                        <% } else { %>
+                            <th> -- </th>
+                        <% } %>
                     <% } %>
-                  <% }) %>
                 </tr>
                 <!-- Goat Row -->
                 <tr>
                     <th>Goat</th>
-                    <!--note: on the server side, filter goat products by "new no defects" and "good condition"-->
-                    <!-- for each stock x variant size,  check if the stockStatus property on the object of the corresponding size value is "in stock", if it is then return the lowestPriceCents property  -->
-                    <!--if status is not_in_stock then return "--" -->
-
-                  </tr>
+                    <% for (let i = 0; i < sizeRange.length; i++) { %>
+                        <% let correspondingGoatVariant = goatVariants.find(variant => variant.size == sizeRange[i]) %>
+                        <% if (correspondingGoatVariant !== undefined) { %>
+                            <th> $<%=correspondingGoatVariant.price%> </th>
+                        <% } else { %>
+                            <th> -- </th>
+                        <% } %>
+                    <% } %>
+                 </tr>
             </table>
         </div>
         

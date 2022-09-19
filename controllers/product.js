@@ -7,24 +7,33 @@ const crypto = require("crypto");
 
 module.exports.saveProduct = async (req, res) => {
     try {
-        await FavoriteProduct.create({ sku: req.body.sku, imageUrl: req.body.imageUrl, productName: req.body.productName, user: req.user.id })
+        await FavoriteProduct.create({ 
+            sku: req.body.sku, 
+            imageUrl: req.body.imageUrl, 
+            productName: req.body.productName, 
+            user: req.user.id 
+        })
 
         res.redirect('/')
     } catch (err) {
         console.log(err)
     }
 }
-module.exports.getStockXProduct = async (req, res) => {
+module.exports.getStockXProduct = async (req, res, next) => {
     
     try {
-        const user = await User.findOne({ _id: req.user.id }).lean();
+        const stockXUser = await User.findOne({ _id: req.user.id }).lean();
 
-       const productId = await getProductId(req.query.sku);
+        const stockXProductId = await getProductId(req.query.sku);
 
-       const productData = await getProductData(productId);
+        const stockXProductData = await getProductData(stockXProductId);
 
-       const variants = productData.variants
-       const productImageUrl = productData.media.imageUrl
+        const stockXVariants = stockXProductData.variants;
+
+
+
+        
+    //    const productImageUrl = productData.media.imageUrl
              
 
     //    return res.json({
@@ -33,15 +42,17 @@ module.exports.getStockXProduct = async (req, res) => {
     //     productData,
     //     productImageUrl
     //     })
+        req.stockXData = {
+            stockXUser,
+            stockXSku: req.query.sku,
+            // stockXProductData,
+            stockXVariants
+        };
 
-        return res.render('product', ({
-            name: user.name,
-            sku:req.query.sku,
-            productId,
-            productData,
-            variants,
-            productImageUrl
-        }))
+        console.log('1')
+        return next();
+        
+
   
 
     } catch (error) {
@@ -181,8 +192,12 @@ async function runGoatSearch (sku) {
 
 
 async function getPageData (productLink) {
-    const hero = new Hero();
+    
+    const hero = new Hero({
+        blockedResourceTypes: ["All"]
+    });
     await hero.goto(productLink);
+    await hero.waitForPaintingStable();
     const nextData = await hero.document.querySelector('#__NEXT_DATA__').textContent;
     const parsedData = JSON.parse(nextData);
     
@@ -191,22 +206,133 @@ async function getPageData (productLink) {
     return parsedData;
 }
 
-module.exports.getGoatProduct = async (req, res) => {
+module.exports.getGoatProduct = async (req, res, next) => {
     try {
 
-        const productMetadata = await runGoatSearch(req.query.sku);
+        const goatUser = await User.findOne({ _id: req.user.id }).lean();
 
-        const productLink = `https://www.goat.com/sneakers/${productMetadata.slug}`;
+        const goatProductMetadata = await runGoatSearch(req.query.sku);
 
-        const variantData = await getPageData(productLink);
+        const goatProductLink = `https://www.goat.com/sneakers/${goatProductMetadata.slug}`;
 
-        res.json({
-            productMetadata,
-            variantData,
-        });
+        const goatVariantData = await getPageData(goatProductLink);
+
+        const allProductSizes = goatVariantData.props.pageProps.productTemplate.sizeRange
+
+        const goatVariants = goatVariantData.props.pageProps.offers.offerData
+
+
+
+        // return res.render('product', ({
+            // ...req.stockXData,
+            // goatUserName: goatUser.name,
+            // goatSku:req.query.sku,
+            // goatProductMetadata,
+            // goatSizes,
+            // goatVariants
+            
+        // }))
+
+
+        req.goatData = {
+            goatUser,
+            goatSku:req.query.sku,
+            goatProductMetadata,
+            allProductSizes,
+            goatVariants
+        };
+        return next()
+       
+
+        // return res.json({
+        //     productMetadata,
+        //     goatSizes
+        // });
 
     } catch (err) {
         console.error(err);
         return res.render('error');
     }
+}
+
+module.exports.getPrices = (req, res) => {
+    console.log('done')
+    let userName = req.stockXData.stockXUser.name;
+    let sizeRange = req.goatData.allProductSizes;
+    let stockXVariants = req.stockXData.stockXVariants;
+    let goatVariants = req.goatData.goatVariants;
+    
+    // return res.json({ 
+    //     ...goatVariants
+    // })
+    return res.render('product', {
+        userName,
+        sizeRange,
+        stockXVariants,
+        goatVariants
+    })
+    // let userName
+    // let sizeRange 
+
+
+    // //if neither stockX data or Goat data exists, render view with error message - no product
+    // if (!req.stockXData && !req.goatData) {
+    //     return res.render('productErrorPage')
+    // } 
+
+    // //if stockXData doesn't exist, render view intended for only data from Goat
+    // if (!req.stockXData) {
+    //     userName =  goatUser.name;
+
+    //     return res.render('productGoatOnly', {
+    //         userName,
+    //         ...req.goatData
+    //     })
+    // }
+
+    // //if goatData doesn't exist, render view intended for only data from StockX  
+    // if (!req.goatData) {
+    //     userName =  stockXUser.name;
+
+
+    //     return res.render('productStockXOnly', {
+    //         userName,
+    //         ...req.stockXData
+    //     })
+    // }
+    
+    // //if both goatData and stockXData exist:
+
+    //decides whether to set stockX or Goat size range as the headers for the table
+    // if (req.stockXData.stockXVariants.length > req.goatData.goatVariants.length) {
+      
+    //     sizeRange = req.stockXData.stockXVariants;
+    //     return res.render('product', {
+    //         ...req.stockXData,
+    //         // ...req.goatData,
+    //         sizeRange,
+    //         userName
+    //     })
+    // } else {
+    //     userName =  req.goatData.goatUser.name;
+    //     sizeRange = req.goatData.goatVariants;
+    //     return res.render('product', {
+    //         // ...req.stockXData,
+    //         ...req.goatData,
+    //         sizeRange,
+    //         userName
+    //     })
+      
+    // }
+    // userName = req.goatData.goatUser.name;
+    // sizeRange = req.goatData.allProductSizes
+    // console.log(sizeRange)
+    // return res.render('product', {
+    //     userName,
+    //     sizeRange
+    // })
+
+   
+
+
 }
