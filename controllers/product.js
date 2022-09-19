@@ -1,8 +1,26 @@
 const User = require('../models/User')
+const FavoriteProduct = require('../models/FavoriteProduct');
 const axios = require("axios");
 const qs = require("qs");
 const Hero = require('@ulixee/hero-playground');
 const crypto = require("crypto");
+
+
+module.exports.saveProduct = async (req, res) => {
+    try {
+        await FavoriteProduct.create({ 
+            sku: req.body.sku, 
+            imageUrl: req.body.imageUrl, 
+            productName: req.body.productName, 
+            user: req.user.id 
+        })
+
+        res.redirect(`/product?sku=${req.body.sku}`);
+
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 module.exports.getStockXProduct = async (req, res, next) => {
     
@@ -243,6 +261,8 @@ module.exports.getGoatProduct = async (req, res, next) => {
 module.exports.getPrices = (req, res) => {
     console.log('done')
     let userName = req.stockXData.stockXUser.name;
+    let goatSku = req.goatData.goatSku;
+    let goatProductMetadata = req.goatData.goatProductMetadata;
     let sizeRange = req.goatData.allProductSizes;
     let stockXVariants = req.stockXData.stockXVariants;
     let goatVariants = req.goatData.goatVariants;
@@ -252,6 +272,8 @@ module.exports.getPrices = (req, res) => {
     // })
     return res.render('product', {
         userName,
+        goatSku,
+        goatProductMetadata,
         sizeRange,
         stockXVariants,
         goatVariants

@@ -14,6 +14,21 @@
         </div>
 
         <div class="overflow-x-auto rounded-md" >
+            <div class="card lg:card-side bg-base-100 shadow-xl">
+                <figure><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>"/></figure>
+                <div class="card-body">
+                  <h2 class="card-title"> <%= goatProductMetadata.name %> </h2>
+                  <p> <%= goatSku %> </p>
+                  <div class="card-actions justify-end">
+                    <form action="/product" method="POST">
+                        <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
+                        <input type="hidden" id="imageUrl" name="imageUrl" value="<%=  goatProductMetadata.image %>"/>
+                        <input type="hidden" id="productName" name="productName" value="<%= goatProductMetadata.name %>"/>
+                        <button class="btn btn-primary" type="submit">Save to Favorites</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
             <table class="table w-full">
               <!-- head -->
               <thead>

@@ -27,3 +27,5 @@ const FavoriteProductSchema = new Mongoose.Schema({
 const FavoriteProduct = Mongoose.model('FavoriteProduct', FavoriteProductSchema);
 
 module.exports = FavoriteProduct;
+
+
