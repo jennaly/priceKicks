@@ -17,6 +17,10 @@ const FavoriteProductSchema = new Mongoose.Schema({
         type: Mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
+    },
+    addedAt: {
+        type: Date,
+        default: Date.now,
     }
 });
 
