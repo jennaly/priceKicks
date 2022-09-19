@@ -1,24 +1,9 @@
 const User = require('../models/User')
-const FavoriteProduct = require('../models/FavoriteProduct')
 const axios = require("axios");
 const qs = require("qs");
 const Hero = require('@ulixee/hero-playground');
 const crypto = require("crypto");
 
-module.exports.saveProduct = async (req, res) => {
-    try {
-        await FavoriteProduct.create({ 
-            sku: req.body.sku, 
-            imageUrl: req.body.imageUrl, 
-            productName: req.body.productName, 
-            user: req.user.id 
-        })
-
-        res.redirect('/')
-    } catch (err) {
-        console.log(err)
-    }
-}
 module.exports.getStockXProduct = async (req, res, next) => {
     
     try {

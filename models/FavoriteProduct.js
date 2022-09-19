@@ -16,7 +16,7 @@ const FavoriteProductSchema = new Mongoose.Schema({
     user: {
         type: Mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'users'
+        ref: 'User'
     }
 });
 
