@@ -37,7 +37,7 @@ module.exports.removeFavoriteProduct = async (req, res) => {
 
 module.exports.getFavoriteProducts = async (req, res, next) => {
     try {
-        const favoriteProducts = await FavoriteProduct.find({ user: req.user.id });
+        const favoriteProducts = await FavoriteProduct.find({ user: req.user.id }).sort({ addedAt: "desc" });
         req.favoriteProductsData = {
             favoriteProducts
         };
