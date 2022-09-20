@@ -16,7 +16,7 @@
         <% if (favoriteProducts.length > 0) { %>
 
         <div>
-            <div class="card max-w-s bg-blue-300 dark:bg-blue-900 mx-auto shadow-xl mb-4 mt-6">
+            <div class="card border border-sky-500 mx-auto mb-4 mt-6">
                 <div class="card-body">
                     <div class="overflow-x-auto w-full">
                         <table class="table w-full">
@@ -26,17 +26,18 @@
                                     <td>
                                         <div class="flex items-center space-x-3">
                                            <ul>
-                                               <li href="/product?sku=<%= favoriteProducts[i].sku %>">
-                                                    <div class="avatar">
-                                                        <div class="mask mask-squircle w-12 h-12">
-                                                            <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
+                                               <li>
+                                                   <a href="/product?sku=<%= favoriteProducts[i].sku %>">
+                                                        <div class="avatar">
+                                                            <div class="mask mask-squircle w-12 h-12">
+                                                                <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div>
-                                                        <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
-                                                        <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
-                                                        
-                                                    </div>
+                                                        <div>
+                                                            <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
+                                                            <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
+                                                        </div>
+                                                    </a>
                                                 </li>
                                             <ul>
                                     
@@ -65,8 +66,10 @@
                 <div class="card-body">
                   <h2 class="card-title"> <%= goatProductMetadata.name %> </h2>
                   <p> <%= goatSku %> </p>
+                  <p> <%= stockXProductDescription %> </p>
+                  
                   <div class="card-actions justify-end">
-
+                  
                     <form action="/product" method="POST">
                         <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
                         <input type="hidden" id="imageUrl" name="imageUrl" value="<%=  goatProductMetadata.image %>"/>
@@ -76,51 +79,15 @@
 
                   </div>
                 </div>
-              </div>
-            <table class="table w-full">
-              <!-- head -->
-              <thead>
-                <tr>
-                    <th></th>
-                    <% for (let i = 0; i < sizeRange.length; i++) { %>
-                        <th class="text-center"> <%= sizeRange[i] %> </th>
-                    <% } %>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- StockX Row -->
-                <tr>
-                    <th>StockX</th>
-                    <% for (let i = 0; i < sizeRange.length; i++) { %>
-                        <% let correspondingStockXVariant = stockXVariants.find(variant => variant.traits.size == sizeRange[i]) %>
-                        <% if (correspondingStockXVariant !== undefined) { %>
-                            <% if (correspondingStockXVariant.market.bidAskData.lowestAsk == null) { %>
-                                <th> -- </th>
-                            <% } else { %>
-                                <th> $<%= correspondingStockXVariant.market.bidAskData.lowestAsk %>.00 </th>
-                            <% } %>
-                        <% } else { %>
-                            <th> -- </th>
-                        <% } %>
-                    <% } %>
-                </tr>
-                <!-- Goat Row -->
-                <tr>
-                    <th>Goat</th>
-                    <% for (let i = 0; i < sizeRange.length; i++) { %>
-                        <% let correspondingGoatVariant = goatVariants.find(variant => variant.size == sizeRange[i]) %>
-                        <% if (correspondingGoatVariant !== undefined) { %>
-                            <th> $<%= correspondingGoatVariant.price %> </th>
-                        <% } else { %>
-                            <th> -- </th>
-                        <% } %>
-                    <% } %>
-                 </tr>
-            </table>
+            </div>
         </div>
-        
-       
+
+        <div class="overflow-x-auto">
+            <%- include('./partials/price-table'); %>
+        </div>
     </div>
+
+
 
 </body>
 </html>
