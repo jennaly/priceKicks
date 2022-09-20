@@ -13,6 +13,52 @@
             <%- include('./partials/productSearchBar'); %>
         </div>
 
+        <% if (favoriteProducts.length > 0) { %>
+
+        <div>
+            <div class="card max-w-s bg-blue-300 dark:bg-blue-900 mx-auto shadow-xl mb-4 mt-6">
+                <div class="card-body">
+                    <div class="overflow-x-auto w-full">
+                        <table class="table w-full">
+                          <tbody>
+                            <% for (let i = 0; i < favoriteProducts.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center space-x-3">
+                                           <ul>
+                                               <li href="/product?sku=<%= favoriteProducts[i].sku %>">
+                                                    <div class="avatar">
+                                                        <div class="mask mask-squircle w-12 h-12">
+                                                            <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
+                                                        <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
+                                                        
+                                                    </div>
+                                                </li>
+                                            <ul>
+                                    
+                                        </div>
+                                    </td>
+                                    <th>
+                                        <form action="/product/<%= favoriteProducts[i].id %>?_method=DELETE" method="POST">
+                                            <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
+                                            <button class="btn btn-ghost btn-xs">Remove</button>
+                                        </form>
+                                    </th>
+                                </tr>
+                            <% } %>
+                          </tbody>
+                        </table>
+                      </div>                        
+                </div>
+            </div>
+        </div>
+    
+        <% } %>
+
         <div class="overflow-x-auto rounded-md" >
             <div class="card lg:card-side bg-base-100 shadow-xl">
                 <figure><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>"/></figure>
@@ -20,7 +66,14 @@
                   <h2 class="card-title"> <%= goatProductMetadata.name %> </h2>
                   <p> <%= goatSku %> </p>
                   <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Save to Favorites</button>
+
+                    <form action="/product" method="POST">
+                        <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
+                        <input type="hidden" id="imageUrl" name="imageUrl" value="<%=  goatProductMetadata.image %>"/>
+                        <input type="hidden" id="productName" name="productName" value="<%= goatProductMetadata.name %>"/>
+                        <button class="btn btn-primary" type="submit">Save to Favorites</button>
+                    </form>
+
                   </div>
                 </div>
               </div>
@@ -30,7 +83,7 @@
                 <tr>
                     <th></th>
                     <% for (let i = 0; i < sizeRange.length; i++) { %>
-                        <th class="text-center"> <%=sizeRange[i] %> </th>
+                        <th class="text-center"> <%= sizeRange[i] %> </th>
                     <% } %>
                 </tr>
               </thead>
@@ -44,7 +97,7 @@
                             <% if (correspondingStockXVariant.market.bidAskData.lowestAsk == null) { %>
                                 <th> -- </th>
                             <% } else { %>
-                                <th> $<%=correspondingStockXVariant.market.bidAskData.lowestAsk%>.00 </th>
+                                <th> $<%= correspondingStockXVariant.market.bidAskData.lowestAsk %>.00 </th>
                             <% } %>
                         <% } else { %>
                             <th> -- </th>
@@ -57,7 +110,7 @@
                     <% for (let i = 0; i < sizeRange.length; i++) { %>
                         <% let correspondingGoatVariant = goatVariants.find(variant => variant.size == sizeRange[i]) %>
                         <% if (correspondingGoatVariant !== undefined) { %>
-                            <th> $<%=correspondingGoatVariant.price%> </th>
+                            <th> $<%= correspondingGoatVariant.price %> </th>
                         <% } else { %>
                             <th> -- </th>
                         <% } %>

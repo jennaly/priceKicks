@@ -16,10 +16,16 @@ const FavoriteProductSchema = new Mongoose.Schema({
     user: {
         type: Mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'users'
+        ref: 'User'
+    },
+    addedAt: {
+        type: Date,
+        default: Date.now,
     }
 });
 
 const FavoriteProduct = Mongoose.model('FavoriteProduct', FavoriteProductSchema);
 
 module.exports = FavoriteProduct;
+
+

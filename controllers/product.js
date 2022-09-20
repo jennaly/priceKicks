@@ -1,11 +1,12 @@
 const User = require('../models/User')
-const FavoriteProduct = require('../models/FavoriteProduct')
+const FavoriteProduct = require('../models/FavoriteProduct');
 const axios = require("axios");
 const qs = require("qs");
 const Hero = require('@ulixee/hero-playground');
 const crypto = require("crypto");
 
-module.exports.saveProduct = async (req, res) => {
+
+module.exports.saveFavoriteProduct = async (req, res) => {
     try {
         await FavoriteProduct.create({ 
             sku: req.body.sku, 
@@ -14,15 +15,45 @@ module.exports.saveProduct = async (req, res) => {
             user: req.user.id 
         })
 
-        res.redirect('/')
+        res.redirect(`/product?sku=${req.body.sku}`);
+
     } catch (err) {
         console.log(err)
     }
 }
+
+module.exports.removeFavoriteProduct = async (req, res) => {
+    try {
+        let product = await FavoriteProduct.findById({ _id: req.params.id });
+        await product.remove({ _id: req.params.id });
+
+        console.log('removed');
+        res.redirect(`/product?sku=${req.body.sku}`);
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+module.exports.getFavoriteProducts = async (req, res, next) => {
+    try {
+        const favoriteProducts = await FavoriteProduct.find({ user: req.user.id });
+        req.favoriteProductsData = {
+            favoriteProducts
+        };
+
+        return next()
+    } catch (err) {
+        console.log(err);
+        return res.render('error');
+    }
+}
+
+
+
 module.exports.getStockXProduct = async (req, res, next) => {
     
     try {
-        const stockXUser = await User.findOne({ _id: req.user.id }).lean();
 
         const stockXProductId = await getProductId(req.query.sku);
 
@@ -30,9 +61,8 @@ module.exports.getStockXProduct = async (req, res, next) => {
 
         const stockXVariants = stockXProductData.variants;
 
+        const stockXProductDescription = stockXProductData.description;
 
-
-        
     //    const productImageUrl = productData.media.imageUrl
              
 
@@ -43,17 +73,13 @@ module.exports.getStockXProduct = async (req, res, next) => {
     //     productImageUrl
     //     })
         req.stockXData = {
-            stockXUser,
             stockXSku: req.query.sku,
-            // stockXProductData,
-            stockXVariants
+            stockXProductData,
+            stockXProductDescription,
+            stockXVariants,
         };
 
-        console.log('1')
         return next();
-        
-
-  
 
     } catch (error) {
         console.error(error);
@@ -209,8 +235,6 @@ async function getPageData (productLink) {
 module.exports.getGoatProduct = async (req, res, next) => {
     try {
 
-        const goatUser = await User.findOne({ _id: req.user.id }).lean();
-
         const goatProductMetadata = await runGoatSearch(req.query.sku);
 
         const goatProductLink = `https://www.goat.com/sneakers/${goatProductMetadata.slug}`;
@@ -235,7 +259,6 @@ module.exports.getGoatProduct = async (req, res, next) => {
 
 
         req.goatData = {
-            goatUser,
             goatSku:req.query.sku,
             goatProductMetadata,
             allProductSizes,
@@ -255,21 +278,30 @@ module.exports.getGoatProduct = async (req, res, next) => {
     }
 }
 
-module.exports.getPrices = (req, res) => {
+module.exports.getPrices = async (req, res) => {
     console.log('done')
-    let userName = req.goatData.goatUser.name;
+
+    const user = await User.findOne({ _id: req.user.id }).lean();
+
     let goatSku = req.goatData.goatSku;
+    let goatProductMetadata = req.goatData.goatProductMetadata;
+
     let sizeRange = req.goatData.allProductSizes;
     let stockXVariants = req.stockXData.stockXVariants;
+    let stockXProductDescription = req.stockXData.stockXProductDescription;
     let goatVariants = req.goatData.goatVariants;
-    let goatProductMetadata = req.goatData.goatProductMetadata;
+    let favoriteProducts = req.favoriteProductsData.favoriteProducts;
+
     
     // return res.json({ 
     //     ...goatVariants
     // })
     return res.render('product', {
-        userName,
+        userName: user.name,
+        favoriteProducts,
         goatSku,
+        goatProductMetadata,
+        stockXProductDescription,
         sizeRange,
         stockXVariants,
         goatVariants,
