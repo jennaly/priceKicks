@@ -280,15 +280,18 @@ module.exports.getGoatProduct = async (req, res, next) => {
 
 module.exports.getPrices = async (req, res) => {
     console.log('done')
+
     const user = await User.findOne({ _id: req.user.id }).lean();
 
     let goatSku = req.goatData.goatSku;
     let goatProductMetadata = req.goatData.goatProductMetadata;
+
     let sizeRange = req.goatData.allProductSizes;
     let stockXVariants = req.stockXData.stockXVariants;
     let stockXProductDescription = req.stockXData.stockXProductDescription;
     let goatVariants = req.goatData.goatVariants;
     let favoriteProducts = req.favoriteProductsData.favoriteProducts;
+
     
     // return res.json({ 
     //     ...goatVariants
@@ -301,7 +304,8 @@ module.exports.getPrices = async (req, res) => {
         stockXProductDescription,
         sizeRange,
         stockXVariants,
-        goatVariants
+        goatVariants,
+        goatProductMetadata
     })
     // let userName
     // let sizeRange 

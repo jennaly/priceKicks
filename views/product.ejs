@@ -66,12 +66,14 @@
                   <h2 class="card-title"> <%= goatProductMetadata.name %> </h2>
                   <p> <%= goatSku %> </p>
                   <div class="card-actions justify-end">
+
                     <form action="/product" method="POST">
                         <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
                         <input type="hidden" id="imageUrl" name="imageUrl" value="<%=  goatProductMetadata.image %>"/>
                         <input type="hidden" id="productName" name="productName" value="<%= goatProductMetadata.name %>"/>
                         <button class="btn btn-primary" type="submit">Save to Favorites</button>
                     </form>
+
                   </div>
                 </div>
               </div>
