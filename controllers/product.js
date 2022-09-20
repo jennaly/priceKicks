@@ -307,9 +307,7 @@ module.exports.getPrices = async (req, res) => {
         goatVariants,
         goatProductMetadata
     })
-    // let userName
-    // let sizeRange 
-
+    
 
     // //if neither stockX data or Goat data exists, render view with error message - no product
     // if (!req.stockXData && !req.goatData) {
@@ -337,36 +335,6 @@ module.exports.getPrices = async (req, res) => {
     //     })
     // }
     
-    // //if both goatData and stockXData exist:
-
-    //decides whether to set stockX or Goat size range as the headers for the table
-    // if (req.stockXData.stockXVariants.length > req.goatData.goatVariants.length) {
-      
-    //     sizeRange = req.stockXData.stockXVariants;
-    //     return res.render('product', {
-    //         ...req.stockXData,
-    //         // ...req.goatData,
-    //         sizeRange,
-    //         userName
-    //     })
-    // } else {
-    //     userName =  req.goatData.goatUser.name;
-    //     sizeRange = req.goatData.goatVariants;
-    //     return res.render('product', {
-    //         // ...req.stockXData,
-    //         ...req.goatData,
-    //         sizeRange,
-    //         userName
-    //     })
-      
-    // }
-    // userName = req.goatData.goatUser.name;
-    // sizeRange = req.goatData.allProductSizes
-    // console.log(sizeRange)
-    // return res.render('product', {
-    //     userName,
-    //     sizeRange
-    // })
 
    
 
