@@ -61,9 +61,8 @@ module.exports.getStockXProduct = async (req, res, next) => {
 
         const stockXVariants = stockXProductData.variants;
 
+        const stockXProductDescription = stockXProductData.description;
 
-
-        
     //    const productImageUrl = productData.media.imageUrl
              
 
@@ -76,7 +75,8 @@ module.exports.getStockXProduct = async (req, res, next) => {
         req.stockXData = {
             stockXSku: req.query.sku,
             stockXProductData,
-            stockXVariants
+            stockXProductDescription,
+            stockXVariants,
         };
 
         return next();
@@ -286,8 +286,9 @@ module.exports.getPrices = async (req, res) => {
     let goatProductMetadata = req.goatData.goatProductMetadata;
     let sizeRange = req.goatData.allProductSizes;
     let stockXVariants = req.stockXData.stockXVariants;
+    let stockXProductDescription = req.stockXData.stockXProductDescription;
     let goatVariants = req.goatData.goatVariants;
-    let favoriteProducts = req.favoriteProductsData.favoriteProducts
+    let favoriteProducts = req.favoriteProductsData.favoriteProducts;
     
     // return res.json({ 
     //     ...goatVariants
@@ -297,6 +298,7 @@ module.exports.getPrices = async (req, res) => {
         favoriteProducts,
         goatSku,
         goatProductMetadata,
+        stockXProductDescription,
         sizeRange,
         stockXVariants,
         goatVariants

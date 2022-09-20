@@ -13,6 +13,8 @@
             <%- include('./partials/productSearchBar'); %>
         </div>
 
+        <% if (favoriteProducts.length > 0) { %>
+
         <div>
             <div class="card max-w-s bg-blue-300 dark:bg-blue-900 mx-auto shadow-xl mb-4 mt-6">
                 <div class="card-body">
@@ -23,18 +25,21 @@
                                 <tr>
                                     <td>
                                         <div class="flex items-center space-x-3">
-                                           
-                                                <div class="avatar">
-                                                    <div class="mask mask-squircle w-12 h-12">
-                                                        <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
+                                           <ul>
+                                               <li href="/product?sku=<%= favoriteProducts[i].sku %>">
+                                                    <div class="avatar">
+                                                        <div class="mask mask-squircle w-12 h-12">
+                                                            <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div>
-                                                    <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
-                                                    <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
-                                                    <a href="/product?sku=<%= favoriteProducts[i].sku %>">Link to product</a>
-                                                </div>
-                                            
+                                                    <div>
+                                                        <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
+                                                        <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
+                                                        
+                                                    </div>
+                                                </li>
+                                            <ul>
+                                    
                                         </div>
                                     </td>
                                     <th>
@@ -51,6 +56,8 @@
                 </div>
             </div>
         </div>
+    
+        <% } %>
 
         <div class="overflow-x-auto rounded-md" >
             <div class="card lg:card-side bg-base-100 shadow-xl">
