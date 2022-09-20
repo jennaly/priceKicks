@@ -22,6 +22,19 @@ module.exports.saveFavoriteProduct = async (req, res) => {
     }
 }
 
+module.exports.removeFavoriteProduct = async (req, res) => {
+    try {
+        let product = await FavoriteProduct.findById({ _id: req.params.id });
+        await product.remove({ _id: req.params.id });
+
+        console.log('removed');
+        res.redirect(`/product?sku=${req.body.sku}`);
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 module.exports.getFavoriteProducts = async (req, res, next) => {
     try {
         const favoriteProducts = await FavoriteProduct.find({ user: req.user.id });
@@ -35,6 +48,8 @@ module.exports.getFavoriteProducts = async (req, res, next) => {
         return res.render('error');
     }
 }
+
+
 
 module.exports.getStockXProduct = async (req, res, next) => {
     

@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const methodOverride = require("method-override");
 const connectDB = require('./config/db')
 
 
@@ -56,11 +57,14 @@ require('./config/passport')(passport)
 //Static folder 
 app.use(express.static(path.join(__dirname, 'public')))
 
+//Use forms for put / delete
+app.use(methodOverride("_method"));
+
 
 //Routes
-const indexRouter = require('./routes/index')
-const authRouter = require('./routes/auth')
-const productRouter = require('./routes/product')
+const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
+const productRouter = require('./routes/product');
 
 app.use('/', indexRouter)
 app.use('/', authRouter)

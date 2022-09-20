@@ -23,7 +23,7 @@
                                 <tr>
                                     <td>
                                         <div class="flex items-center space-x-3">
-                                            <a href="/product?sku=<%= favoriteProducts[i].sku %>">
+                                           
                                                 <div class="avatar">
                                                     <div class="mask mask-squircle w-12 h-12">
                                                         <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
@@ -32,12 +32,16 @@
                                                 <div>
                                                     <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
                                                     <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
+                                                    <a href="/product?sku=<%= favoriteProducts[i].sku %>">Link to product</a>
                                                 </div>
-                                            </a>
+                                            
                                         </div>
                                     </td>
                                     <th>
-                                      <button class="btn btn-ghost btn-xs">Remove</button>
+                                        <form action="/product/<%= favoriteProducts[i].id %>?_method=DELETE" method="POST">
+                                            <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
+                                            <button class="btn btn-ghost btn-xs">Remove</button>
+                                        </form>
                                     </th>
                                 </tr>
                             <% } %>

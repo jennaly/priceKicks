@@ -8,5 +8,7 @@ router.get('/', ensureAuth, productController.getFavoriteProducts, productContro
 
 router.post('/', productController.saveFavoriteProduct)
 
+router.delete('/:id', productController.removeFavoriteProduct)
+
 
 module.exports = router
