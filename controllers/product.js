@@ -63,15 +63,6 @@ module.exports.getStockXProduct = async (req, res, next) => {
 
         const stockXProductDescription = stockXProductData.description;
 
-    //    const productImageUrl = productData.media.imageUrl
-             
-
-    //    return res.json({
-    //     sku: req.query.sku,
-    //     productId,
-    //     productData,
-    //     productImageUrl
-    //     })
         req.stockXData = {
             stockXSku: req.query.sku,
             stockXProductData,
@@ -245,6 +236,7 @@ module.exports.getGoatProduct = async (req, res, next) => {
 
         const goatVariants = goatVariantData.props.pageProps.offers.offerData
 
+        const goatProductDescription = goatVariantData.props.pageProps.productTemplate.story
 
 
         // return res.render('product', ({
@@ -262,15 +254,10 @@ module.exports.getGoatProduct = async (req, res, next) => {
             goatSku:req.query.sku,
             goatProductMetadata,
             allProductSizes,
-            goatVariants
+            goatVariants,
+            goatProductDescription
         };
         return next()
-       
-
-        // return res.json({
-        //     productMetadata,
-        //     goatSizes
-        // });
 
     } catch (err) {
         console.error(err);
@@ -283,29 +270,17 @@ module.exports.getPrices = async (req, res) => {
 
     const user = await User.findOne({ _id: req.user.id }).lean();
 
-    let goatSku = req.goatData.goatSku;
-    let goatProductMetadata = req.goatData.goatProductMetadata;
-
+ 
     let sizeRange = req.goatData.allProductSizes;
     let stockXVariants = req.stockXData.stockXVariants;
-    let stockXProductDescription = req.stockXData.stockXProductDescription;
-    let goatVariants = req.goatData.goatVariants;
     let favoriteProducts = req.favoriteProductsData.favoriteProducts;
 
-    
-    // return res.json({ 
-    //     ...goatVariants
-    // })
     return res.render('product', {
         userName: user.name,
-        favoriteProducts,
-        goatSku,
-        goatProductMetadata,
-        stockXProductDescription,
         sizeRange,
         stockXVariants,
-        goatVariants,
-        goatProductMetadata
+        favoriteProducts,
+        ...req.goatData
     })
     
 
