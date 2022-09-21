@@ -14,7 +14,7 @@ module.exports.saveFavoriteProduct = async (req, res) => {
             productName: req.body.productName, 
             user: req.user.id 
         })
-
+        
         res.redirect(`/product?sku=${req.body.sku}`);
 
     } catch (err) {

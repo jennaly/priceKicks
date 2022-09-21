@@ -18,7 +18,7 @@
         <div>
             <div class="card border border-sky-500 mx-auto mb-4 mt-6">
                 <div class="card-body">
-                    <div class="overflow-x-auto w-full">
+                   
                         <table class="table w-full">
                           <tbody>
                             <% for (let i = 0; i < favoriteProducts.length; i++) { %>
@@ -33,7 +33,7 @@
                                                                 <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
                                                             </div>
                                                         </div>
-                                                        <div>
+                                                        <div class="">
                                                             <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
                                                             <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
                                                         </div>
@@ -54,15 +54,15 @@
                           </tbody>
                         </table>
                       </div>                        
-                </div>
+   
             </div>
         </div>
     
         <% } %>
 
         <div class="overflow-x-auto rounded-md" >
-            <div class="card lg:card-side bg-base-100 shadow-xl">
-                <figure><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>"/></figure>
+            <div class="card lg:card-side">
+                <figure><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>" class=""/></figure>
                 <div class="card-body">
                   <h2 class="card-title"> <%= goatProductMetadata.name %> </h2>
                   <p> <%= goatSku %> </p>
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto rounded-md">
             <%- include('./partials/price-table'); %>
         </div>
     </div>
