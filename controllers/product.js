@@ -28,7 +28,12 @@ module.exports.removeFavoriteProduct = async (req, res) => {
         await product.remove({ _id: req.params.id });
 
         console.log('removed');
-        res.redirect(`/product?sku=${req.body.sku}`);
+        if (req.body.sku) {
+            res.redirect(`/product?sku=${req.body.sku}`);
+        } else {
+            res.redirect('/')
+        }
+   
 
     } catch (err) {
         console.log(err)
@@ -193,7 +198,7 @@ async function runGoatSearch (sku) {
             return qs.stringify(params)
         },
     });
-    // response body
+
     const data = await response.data;
    
     const productData = data.response.results[0].data
