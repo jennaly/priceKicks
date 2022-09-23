@@ -4,61 +4,24 @@
     <%- include('./partials/head'); %>
 </head>
 <body>
-    <div class="container mx-auto px-5 py-4">
+    <div class="container px-8 md:mx-auto my-10">
         <header>
             <%- include('./partials/header'); %>
         </header>
 
-        <div>
-            <%- include('./partials/productSearchBar'); %>
-        </div>
+        <div class="mt-5"> 
 
-        <% if (favoriteProducts.length > 0) { %>
-
-        <div>
-            <div class="card border border-sky-500 mx-auto mb-4 mt-6">
-                <div class="card-body">
-                   
-                        <table class="table w-full">
-                          <tbody>
-                            <% for (let i = 0; i < favoriteProducts.length; i++) { %>
-                                <tr>
-                                    <td>
-                                        <div class="flex items-center space-x-3">
-                                           <ul>
-                                               <li>
-                                                   <a href="/product?sku=<%= favoriteProducts[i].sku %>">
-                                                        <div class="avatar">
-                                                            <div class="mask mask-squircle w-12 h-12">
-                                                                <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="">
-                                                            <span class="font-bold"> <%= favoriteProducts[i].productName %> </span>
-                                                            <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            <ul>
-                                    
-                                        </div>
-                                    </td>
-                                    <th>
-                                        <form action="/product/<%= favoriteProducts[i].id %>?_method=DELETE" method="POST">
-                                            <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
-                                            <button class="btn btn-ghost btn-xs">Remove</button>
-                                        </form>
-                                    </th>
-                                </tr>
-                            <% } %>
-                          </tbody>
-                        </table>
-                      </div>                        
-   
+            <div class="flex flex-col w-full lg:flex-row">
+                <div class="grid flex-grow h-64 card border border-sky-500 bg-base-300 rounded-box place-items-center"> content </div> 
+                <div class="divider lg:divider-horizontal">OR</div> 
+                <% if (favoriteProducts.length > 0) { %>
+                    <div class="grid flex-grow h-64 overflow-y-auto py-4 px-2 card border border-sky-500 rounded-box place-items-center"> <%- include('./partials/favorites-table'); %> </div>
+                <% } else { %>
+                    <div class="grid flex-grow h-64 card border border-sky-500 rounded-box place-items-center">You don't have any sneakers saved! </div>
+                <% } %>
             </div>
+
         </div>
-    
-        <% } %>
 
         <div class="overflow-x-auto rounded-md" >
             <div class="card lg:card-side">
@@ -87,7 +50,6 @@
         </div>
     </div>
 
-
-
+ 
 </body>
 </html>
