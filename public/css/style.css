@@ -3138,6 +3138,10 @@ html {
     margin-right: auto;
   }
 
+  .md\:mt-0 {
+    margin-top: 0px;
+  }
+
   .md\:mt-2 {
     margin-top: 0.5rem;
   }
@@ -3192,5 +3196,11 @@ html {
     height: 100%;
     -o-object-fit: cover;
        object-fit: cover;
+  }
+}
+@media (min-width: 1536px) {
+
+  .\32xl\:w-1\/2 {
+    width: 50%;
   }
 }

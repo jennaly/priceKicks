@@ -26,7 +26,7 @@
 
         <div class="overflow-x-auto rounded-md" >
             <div class="card xl:card-side">
-                <figure class="w-10/12"><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>" class=""/></figure>
+                <figure class="2xl:w-1/2"><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>" class=""/></figure>
                 <div class="card-body">
                   <h2 class="card-title"> <%= goatProductMetadata.name %> </h2>
                   <p> <%= goatSku %> </p>
@@ -38,7 +38,7 @@
                         <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
                         <input type="hidden" id="imageUrl" name="imageUrl" value="<%=  goatProductMetadata.image %>"/>
                         <input type="hidden" id="productName" name="productName" value="<%= goatProductMetadata.name %>"/>
-                        <button class="btn bg-blue-900 dark:bg-blue-500 hover:dark:bg-blue-400 dark:text-slate-300" type="submit">Save to Favorites</button>
+                        <button class="btn bg-blue-900 dark:bg-blue-500 hover:dark:bg-blue-400 dark:text-slate-300 mt-2 md:mt-0" type="submit">Save to Favorites</button>
                     </form>
 
                   </div>
