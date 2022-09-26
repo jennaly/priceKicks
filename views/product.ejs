@@ -5,7 +5,7 @@
     <title>PriceKicks</title>
 </head>
 <body>
-    <div class="container px-5 md:mx-auto my-10">
+    <div class="container px-5 lg:mx-auto my-8">
         <nav>
             <%- include('./partials/nav'); %>
         </nav>
@@ -26,11 +26,13 @@
 
         <div class="overflow-x-auto rounded-md" >
             <div class="card xl:card-side">
-                <figure class="2xl:w-1/2"><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>" class=""/></figure>
-                <div class="card-body">
-                  <h2 class="card-title"> <%= goatProductMetadata.name %> </h2>
-                  <p> <%= goatSku %> </p>
-                  <p> <%= goatProductDescription %> </p>
+                <figure class="2xl:w-1/2"><img src="<%= goatProductMetadata.image %>" alt="<%= goatProductMetadata.name %>" /></figure>
+                <div class="flex flex-col justify-center gap-y-6">
+                    <div>
+                        <h2 class="card-title text-3xl"> <%= goatProductMetadata.name %> </h2>
+                        <p class="text-lg font-normal text-slate-500"> <%= goatSku %> </p>
+                    </div>
+                    <p> <%= goatProductDescription %> </p>
                   
                   <div class="card-actions justify-end">
                   
