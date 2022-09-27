@@ -18,7 +18,7 @@
                   <% if (correspondingStockXVariant.market.bidAskData.lowestAsk == null) { %>
                       <th> -- </th>
                   <% } else { %>
-                      <th> $<%= correspondingStockXVariant.market.bidAskData.lowestAsk %>.00 </th>
+                      <th class="font-normal"> $<%= correspondingStockXVariant.market.bidAskData.lowestAsk %>.00 </th>
                   <% } %>
               <% } else { %>
                   <th> -- </th>
@@ -31,7 +31,7 @@
           <% for (let i = 0; i < sizeRange.length; i++) { %>
               <% let correspondingGoatVariant = goatVariants.find(variant => variant.size == sizeRange[i]) %>
               <% if (correspondingGoatVariant !== undefined) { %>
-                  <th> $<%= correspondingGoatVariant.price %> </th>
+                  <th class="font-normal"> $<%= correspondingGoatVariant.price %> </th>
               <% } else { %>
                   <th> -- </th>
               <% } %>

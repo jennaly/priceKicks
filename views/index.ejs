@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" class="dark:bg-black">
 <head>
-  <%- include('./partials/head'); %>
+    <%- include('./partials/head'); %>
+    <title>PriceKicks</title>
 </head>
 <body>
-  <div class="container mx-auto px-5 py-4">
-    <header>
-      <%- include('./partials/header'); %>
-    </header>
+    <div class="container px-5 md:mx-auto my-10">
+      <nav>
+          <%- include('./partials/nav'); %>
+      </nav>
 
-   <div>
-      <%- include('./partials/productSearchBar'); %>
-   </div>
+      <header class="mt-5"> 
+
+        <div class="flex flex-col w-full lg:flex-row">
+            <div class="grid flex-grow h-64 card border border-sky-500 rounded-box justify-center p-4"> <%- include('./partials/product-search-bar'); %> </div> 
+            <div class="divider lg:divider-horizontal">OR</div> 
+            <% if (favoriteProducts.length > 0) { %>
+                <div class="grid flex-grow h-64 overflow-y-auto p-2 card border border-sky-500 rounded-box place-items-center"> <%- include('./partials/favorites-table-no-sku'); %> </div>
+            <% } else { %>
+                <div class="grid flex-grow h-64 card border border-sky-500 rounded-box place-items-center">You don't have any sneakers saved! </div>
+            <% } %>
+        </div>
+
+
+
+
+      </header>
+
+    </div>
+
  
-   
-
-
-
-  </div>
-
 </body>
 </html>

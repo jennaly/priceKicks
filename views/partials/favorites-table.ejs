@@ -1,0 +1,37 @@
+<h2 class='text-lg md:text-xl mx-auto uppercase font-bold mt-4 md:mt-2 px-2'>Choose one from your favorites</h2>
+
+<table class="w-10/12 my-4">
+    <tbody class="my-4">
+    <% for (let i = 0; i < favoriteProducts.length; i++) { %>
+        <tr>
+            <td>
+                <div class="flex items-center space-x-3">
+                                
+                    <div class="avatar">
+                        <div class="mask mask-squircle w-12 h-12">
+                            <a href="/product?sku=<%= favoriteProducts[i].sku %>">
+                            <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>" />\
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="/product?sku=<%= favoriteProducts[i].sku %>">
+                        <span class="font-bold"> <%= favoriteProducts[i].productName %> </span><br>
+                        <span class="text-sm opacity-50"> <%= favoriteProducts[i].sku %></span>
+                        </a>
+                    </div>
+
+                </div>
+            </td>
+            <th>
+                <form action="/product/<%= favoriteProducts[i].id %>?_method=DELETE" method="POST">
+                    <input type="hidden" id="sku" name="sku" value="<%= goatSku %>"/>
+                    <button class="btn btn-ghost btn-xs">Remove</button>
+                </form>
+            </th>
+        </tr>
+    <% } %>
+    </tbody>
+</table>
+
+
