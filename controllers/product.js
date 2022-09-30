@@ -275,12 +275,15 @@ module.exports.getPrices = async (req, res) => {
 
     const user = await User.findOne({ _id: req.user.id }).lean();
 
- 
+    let stockXTransactionFee = user.stockXTransactionFee;
+    let goatCommissionFee = user.goatCommissionFee;
     let sizeRange = req.goatData.allProductSizes;
     let stockXVariants = req.stockXData.stockXVariants;
     let favoriteProducts = req.favoriteProductsData.favoriteProducts;
 
     return res.render('product', {
+        stockXTransactionFee,
+        goatCommissionFee,
         userName: user.name,
         sizeRange,
         stockXVariants,

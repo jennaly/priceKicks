@@ -15,10 +15,11 @@
           <% for (let i = 0; i < sizeRange.length; i++) { %>
               <% let correspondingStockXVariant = stockXVariants.find(variant => variant.traits.size == sizeRange[i]) %>
               <% if (correspondingStockXVariant !== undefined) { %>
-                  <% if (correspondingStockXVariant.market.bidAskData.lowestAsk == null) { %>
-                      <th> -- </th>
+                <% let lowestAsk = correspondingStockXVariant.market.bidAskData.lowestAsk %>
+                  <% if (lowestAsk == null) { %>
+                        <th> -- </th>
                   <% } else { %>
-                      <th class="font-normal"> $<%= (correspondingStockXVariant.market.bidAskData.lowestAsk).toFixed(2) %> </th>
+                        <th class="font-normal"> $<%= (lowestAsk - stockXTransactionFee*lowestAsk - 0.03*lowestAsk - 4).toFixed(2)  %> </th>
                   <% } %>
               <% } else { %>
                   <th> -- </th>
@@ -31,7 +32,8 @@
           <% for (let i = 0; i < sizeRange.length; i++) { %>
               <% let correspondingGoatVariant = goatVariants.find(variant => variant.size == sizeRange[i]) %>
               <% if (correspondingGoatVariant !== undefined) { %>
-                  <th class="font-normal"> $<%= correspondingGoatVariant.price %> </th>
+                <% let lowestAsk = correspondingGoatVariant.price %>
+                  <th class="font-normal"> $<%= (lowestAsk - goatCommissionFee*lowestAsk - 0.029*lowestAsk - 5).toFixed(2) %> </th>
               <% } else { %>
                   <th> -- </th>
               <% } %>
