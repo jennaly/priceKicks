@@ -49,12 +49,23 @@
         </div>
 
         <div class="overflow-x-auto rounded-md">
-    
-            <%- include('./partials/payout-table'); %>
+            <!--tab links-->
+            <div class="tabs">
+                <a class="tab tab-lifted tab-active" onclick="toggleTable(event, 'LowestAsk')">Lowest Ask</a> 
+                <a class="tab tab-lifted"  onclick="toggleTable(event, 'Payout')">Payout</a> 
+            </div>
+            <!--Tab content-->
+            <div id="LowestAsk" class="tabcontent">
+                <%- include('./partials/price-table'); %>
+            </div>
+
+            <div id="Payout" class="tabcontent">
+                <%- include('./partials/payout-table'); %>
+            </div>
             
         </div>
     </div>
 
- 
+    <script src="/js/priceTableToggle.js"></script>
 </body>
 </html>

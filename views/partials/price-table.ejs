@@ -18,7 +18,7 @@
                   <% if (correspondingStockXVariant.market.bidAskData.lowestAsk == null) { %>
                       <th> -- </th>
                   <% } else { %>
-                      <th class="font-normal"> $<%= (correspondingStockXVariant.market.bidAskData.lowestAsk).toFixed(2) %> </th>
+                      <th class="font-normal"> $<%= correspondingStockXVariant.market.bidAskData.lowestAsk %>.00 </th>
                   <% } %>
               <% } else { %>
                   <th> -- </th>
