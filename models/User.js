@@ -9,6 +9,14 @@ const UserSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
+    stockXTransactionFee: {
+        type: Number,
+        required: true
+    },
+    goatCommissionFee: {
+        type: Number,
+        required: true
+    },
     hashedPassword: {
         type: String,
         required: true
