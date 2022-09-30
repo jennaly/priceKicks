@@ -3109,6 +3109,9 @@ html {
 .font-normal {
   font-weight: 400;
 }
+.font-thin {
+  font-weight: 100;
+}
 .font-bold {
   font-weight: 700;
 }
