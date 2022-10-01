@@ -219,8 +219,8 @@ async function getPageData (productLink) {
         blockedResourceTypes: ["All"]
     });
     await hero.goto(productLink);
-    await hero.waitForPaintingStable();
-    const nextData = await hero.document.querySelector('#__NEXT_DATA__').textContent;
+    await hero.mainFrameEnvironment.waitForLoad();
+    const nextData = await hero.document.querySelector('#__NEXT_DATA__').innerHTML;
     const parsedData = JSON.parse(nextData);
     
     await hero.close();
@@ -275,12 +275,15 @@ module.exports.getPrices = async (req, res) => {
 
     const user = await User.findOne({ _id: req.user.id }).lean();
 
- 
+    let stockXTransactionFee = user.stockXTransactionFee;
+    let goatCommissionFee = user.goatCommissionFee;
     let sizeRange = req.goatData.allProductSizes;
     let stockXVariants = req.stockXData.stockXVariants;
     let favoriteProducts = req.favoriteProductsData.favoriteProducts;
 
     return res.render('product', {
+        stockXTransactionFee,
+        goatCommissionFee,
         userName: user.name,
         sizeRange,
         stockXVariants,

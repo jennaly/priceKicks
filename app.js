@@ -65,10 +65,12 @@ app.use(methodOverride("_method"));
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const productRouter = require('./routes/product');
+const profileRouter = require('./routes/profile');
 
 app.use('/', indexRouter)
 app.use('/', authRouter)
 app.use('/product', productRouter)
+app.use('/profile', profileRouter)
 
 
 const PORT = process.env.PORT || 8882

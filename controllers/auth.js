@@ -52,6 +52,8 @@ exports.postSignup = (req, res) => {
                     {
                     name: req.body.name,
                     email: req.body.email,
+                    stockXTransactionFee: req.body.stockXTransactionFee,
+                    goatCommissionFee: req.body.goatCommissionFee,
                     hashedPassword: password.toString('hex'),
                     salt: salt
                     }

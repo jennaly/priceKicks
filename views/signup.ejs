@@ -51,6 +51,30 @@
                             <% } %>
                         <% } %>
                     </section>
+
+                    <div class="divider"></div>  
+                    <span class="text-sm ">Seller Profile</span>
+                    <section class="mt-4 items-center">
+                        <select class="select w-full max-w-xs rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 dark:focus:outline-sky-500 dark:text-slate-300 dark:bg-black"  id="stockXTransactionFee" name="stockXTransactionFee" required>
+                            <option disabled selected class="text-sm font-thin">StockX Seller Level</option>
+                            <option value=0.10>Level 1</option>
+                            <option value=0.095>Level 2</option>
+                            <option value=0.09>Level 3</option>
+                            <option value=0.085>Level 4</option>
+                            <option value=0.08>Level 5</option>
+                        </select>                    
+                    </section>
+
+                    <section class="mt-4 items-center">
+                        <select class="select w-full max-w-xs rounded-md focus:outline-offset-0 focus:outline-2 focus:outline-blue-500 dark:focus:outline-sky-500 dark:text-slate-300 dark:bg-black"  id="goatCommissionFee" name="goatCommissionFee" required>
+                            <option disabled selected class="text-sm">Goat Seller Rating</option>
+                            <option value=0.095>90 or greater</option>
+                            <option value=0.15>70-89</option>
+                            <option value=0.20>50-69</option>
+                            <option value=0.25>Less than 50</option>
+                        </select>                    
+                    </section>
+
                     <button class="mt-4 btn-block px-2 py-2 rounded-md bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 text-white text-sm font-semibold" type="submit">Sign up</button>
                     <% if (locals.existingAccountError) { %>
                         <div class="alert alert-error shadow-lg mt-4">
