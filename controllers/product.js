@@ -219,8 +219,8 @@ async function getPageData (productLink) {
         blockedResourceTypes: ["All"]
     });
     await hero.goto(productLink);
-    await hero.waitForPaintingStable();
-    const nextData = await hero.document.querySelector('#__NEXT_DATA__').textContent;
+    await hero.mainFrameEnvironment.waitForLoad();
+    const nextData = await hero.document.querySelector('#__NEXT_DATA__').innerHTML;
     const parsedData = JSON.parse(nextData);
     
     await hero.close();

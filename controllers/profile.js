@@ -46,5 +46,20 @@ module.exports = {
         } catch (err) {
             console.log(err)
         }
-    }
+    },
+    updateProfile: async (req, res) => {
+        try {
+            await User.findOneAndUpdate(
+                { _id: req.user.id },
+                {
+                    stockXTransactionFee: req.body.stockXTransactionFee,
+                    goatCommissionFee: req.body.goatCommissionFee,
+                }
+              );
+              console.log("Changes submitted");
+              res.redirect('/');            
+        } catch (err) {
+            console.log(err)
+        }
+    } 
 }
