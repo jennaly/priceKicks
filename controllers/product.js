@@ -243,18 +243,6 @@ module.exports.getGoatProduct = async (req, res, next) => {
 
         const goatProductDescription = goatVariantData.props.pageProps.productTemplate.story
 
-
-        // return res.render('product', ({
-            // ...req.stockXData,
-            // goatUserName: goatUser.name,
-            // goatSku:req.query.sku,
-            // goatProductMetadata,
-            // goatSizes,
-            // goatVariants
-            
-        // }))
-
-
         req.goatData = {
             goatSku:req.query.sku,
             goatProductMetadata,
@@ -290,36 +278,4 @@ module.exports.getPrices = async (req, res) => {
         favoriteProducts,
         ...req.goatData
     })
-    
-
-    // //if neither stockX data or Goat data exists, render view with error message - no product
-    // if (!req.stockXData && !req.goatData) {
-    //     return res.render('productErrorPage')
-    // } 
-
-    // //if stockXData doesn't exist, render view intended for only data from Goat
-    // if (!req.stockXData) {
-    //     userName =  goatUser.name;
-
-    //     return res.render('productGoatOnly', {
-    //         userName,
-    //         ...req.goatData
-    //     })
-    // }
-
-    // //if goatData doesn't exist, render view intended for only data from StockX  
-    // if (!req.goatData) {
-    //     userName =  stockXUser.name;
-
-
-    //     return res.render('productStockXOnly', {
-    //         userName,
-    //         ...req.stockXData
-    //     })
-    // }
-    
-
-   
-
-
 }
