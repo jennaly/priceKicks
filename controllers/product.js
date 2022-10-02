@@ -4,6 +4,7 @@ const axios = require("axios");
 const qs = require("qs");
 const Hero = require('@ulixee/hero-playground');
 const crypto = require("crypto");
+const { parse } = require('path');
 
 
 module.exports.saveFavoriteProduct = async (req, res) => {
@@ -219,12 +220,11 @@ async function getPageData (productLink) {
         blockedResourceTypes: ["All"]
     });
     await hero.goto(productLink);
-    await hero.mainFrameEnvironment.waitForLoad();
+    await hero.mainFrameEnvironment.waitForLoad()
     const nextData = await hero.document.querySelector('#__NEXT_DATA__').innerHTML;
     const parsedData = JSON.parse(nextData);
     
     await hero.close();
-
     return parsedData;
 }
 
