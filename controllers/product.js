@@ -86,7 +86,19 @@ module.exports.getStockXProduct = async (req, res, next) => {
 
 const STOCKX_SEARCH_URL = "https://stockx.com/api/browse";
 
+const proxies = process.env.PROXIES ? process.env.PROXIES.split(',').map((proxy) => {
+    const proxyFields = proxy.split(':');
+    return {
+        host: proxyFields[0],
+        port: Number(proxyFields[1]),
+        username: proxyFields[2] || null,
+        password: proxyFields[3] || null
+    }
+}) : [];
+
 async function getProductId(sku) {
+
+    const proxy = proxies[Math.floor(Math.random() * proxies.length)];
 
     const response = await axios(STOCKX_SEARCH_URL, {
         method: "GET",
@@ -117,6 +129,14 @@ async function getProductId(sku) {
         paramsSerializer: params => {
             return qs.stringify(params)
         },
+        proxy: proxy ? {
+            host: proxy.host,
+            port: proxy.port,
+            auth: {
+                username: proxy.username || '',
+                password: proxy.password || ''
+            }
+        } : false
     });
 
     const data = await response.data;
@@ -127,6 +147,8 @@ async function getProductId(sku) {
 const STOCKX_API_URL = "https://stockx.com/api/p/e";
 
 async function getProductData(productId) {
+
+    const proxy = proxies[Math.floor(Math.random() * proxies.length)];
 
     const response = await axios(STOCKX_API_URL, {
         method: "POST",
@@ -158,6 +180,14 @@ async function getProductData(productId) {
                 marketName: "US"
             }
         },
+        proxy: proxy ? {
+            host: proxy.host,
+            port: proxy.port,
+            auth: {
+                username: proxy.username || '',
+                password: proxy.password || ''
+            }
+        } : false
     });
 
     const data = await response.data;
