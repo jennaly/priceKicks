@@ -244,9 +244,12 @@ async function runGoatSearch (sku) {
 
 
 async function getPageData (productLink) {
+
+    const proxy = proxies[Math.floor(Math.random() * proxies.length)];
     
     const hero = new Hero({
-        blockedResourceTypes: ["All"]
+        blockedResourceTypes: ["All"],
+        upstreamProxyUrl: `http://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}`,
     });
     await hero.goto(productLink);
     await hero.mainFrameEnvironment.waitForLoad();
@@ -289,7 +292,6 @@ module.exports.getGoatProduct = async (req, res, next) => {
 }
 
 module.exports.getPrices = async (req, res) => {
-    console.log('done')
 
     const user = await User.findOne({ _id: req.user.id }).lean();
 
