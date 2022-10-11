@@ -1,4 +1,4 @@
-# PriceKicks - In Progress
+# PriceKicks 
 An application that allows sneakers secondary market sellers to quickly conduct market research on current prices of products across the two biggest sneakers reselling E-Commerce platforms - StockX and Goat. 
 
 With a quick enter of the product SKU (a unique identification value that comes with all sneakers), the user is able to retrieve a product's lowest "ask" prices - the listing prices by other resellers - for all sizes that the product comes in from StockX and Goat. This data is taken live at the moment of the search, giving the closest reflection of the live relling market at the convenience of a single search. 
