@@ -5,74 +5,39 @@
     <title>PriceKicks</title>
 </head>
 <body>
+
     <div class="container px-5 md:mx-auto py-1 my-6">
       <nav>
           <%- include('./partials/nav'); %>
       </nav>
-
-      <!-- <header class="mt-5"> 
-
-        <div class="flex flex-col w-full lg:flex-row">
-            <div class="grid flex-grow h-64 card border border-sky-500 rounded-box justify-center p-4"> <%- include('./partials/product-search-bar'); %> </div> 
-            <div class="divider lg:divider-horizontal">OR</div> 
-            <% if (favoriteProducts.length > 0) { %>
-                <div class="grid flex-grow h-64 overflow-y-auto p-2 card border border-sky-500 rounded-box place-items-center"> <%- include('./partials/favorites-table-no-sku'); %> </div>
-            <% } else { %>
-                <div class="grid flex-grow h-64 card border border-sky-500 rounded-box place-items-center">You don't have any sneakers saved! </div>
-            <% } %>
-        </div>
-
-
-
-
-      </header> -->
-
     </div>
 
-    <div class="hero" style="background-image: url(../assets/index-hero2.jpg);">
+    <div class="hero min-h-screen" style="background-image: url(../assets/index-hero2.jpg);">
         <div class="hero-overlay bg-opacity-80"></div>
-        <div class="text-center text-neutral-content py-20">
-            <div class="max-w-md">
-                <h1 class="mb-5 text-4xl font-bold leading-tight">Explore the world's leading design portfolios</h1>
+        <div class="text-center text-neutral-content py-20 px-4">
+            <div class="max-w-md mx-auto">
+                <h2 class="mb-5 text-4xl font-bold leading-tight">Explore the world's leading design portfolios</h2>
                 <p class="mb-5">Millions of designers and agencies around the world showcase their portfolio word on Dribble - the home to the world's best design and creative professionals.</p>
                 <form action="/product" method='GET' >
                     <input type="search" placeholder="Search..." name="sku" class="w-full max-w-md mt-4 rounded-full p-4 px-6 text-black" required/>
                     <button type="submit"></button>
                 </form>
             </div>
-
-            <!-- <div>
-                <% if (favoriteProducts.length > 0) { %>
-                    <div class="carousel w-96 mx-auto">
-                        <% for (let i = 0; i < favoriteProducts.length; i++) { %>
-                            <div id="item<%= i + 1 %>" class="carousel-item max-w-md">
-                                <div class="card w-96 bg-base-100 shadow-xl">
-                                    <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
-                                    <div class="card-body">
-                                    <h2 class="card-title">Shoes!</h2>
-                                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                                    <div class="card-actions justify-end">
-                                        <button class="btn btn-primary">See Product</button>
-                                    </div>
-                                    </div>
-                                </div>
-                                
-                            </div> 
-                        <% } %>
-                    </div>
-            
-                    <div class="flex mx-auto justify-center w-full py-2 gap-2 w-96">
-                        <% for (let i = 0; i < favoriteProducts.length; i++) { %>
-                            <a href="#item<%= i + 1 %>"class="btn btn-xs"><%= i+1 %></a> 
-                        <% } %>
-                    </div>
-                <% } %>
-            </div>
-             -->
-
         </div>
     </div>
-
     
+    <% if (favoriteProducts.length > 0) { %>
+        <div class="px-4">
+            <div class="carousel carousel-center w-full p-4 space-x-4 rounded-box">
+                <% for (let i = 0; i < favoriteProducts.length; i++) { %>
+                    <div class="carousel-item rounded-box flex flex-col w-60">
+                        <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>"  class="bg-slate-200 block w-full mx-auto px-2 mb-2" />
+                        <span class="block font-bold text-black flex-wrap"> <%= favoriteProducts[i].productName %> </span>
+                        <span class="block text-sm opacity-50 text-slate-500"> <%= favoriteProducts[i].sku %></span>
+                    </div> 
+                <% } %>
+            </div>
+        </div>
+    <% } %>
 </body>
 </html>
