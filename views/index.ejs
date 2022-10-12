@@ -36,15 +36,43 @@
                 <h1 class="mb-5 text-4xl font-bold leading-tight">Explore the world's leading design portfolios</h1>
                 <p class="mb-5">Millions of designers and agencies around the world showcase their portfolio word on Dribble - the home to the world's best design and creative professionals.</p>
                 <form action="/product" method='GET' >
-                    <button class="w-full max-w-md mt-4" >
-                        <input type="search" placeholder="Search..." class="w-full max-w-md rounded-full p-4 px-6 text-black"/>
-                    </button>
+                    <input type="search" placeholder="Search..." name="sku" class="w-full max-w-md mt-4 rounded-full p-4 px-6 text-black" required/>
+                    <button type="submit"></button>
                 </form>
             </div>
+
+            <!-- <div>
+                <% if (favoriteProducts.length > 0) { %>
+                    <div class="carousel w-96 mx-auto">
+                        <% for (let i = 0; i < favoriteProducts.length; i++) { %>
+                            <div id="item<%= i + 1 %>" class="carousel-item max-w-md">
+                                <div class="card w-96 bg-base-100 shadow-xl">
+                                    <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
+                                    <div class="card-body">
+                                    <h2 class="card-title">Shoes!</h2>
+                                    <p>If a dog chews shoes whose shoes does he choose?</p>
+                                    <div class="card-actions justify-end">
+                                        <button class="btn btn-primary">See Product</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                
+                            </div> 
+                        <% } %>
+                    </div>
+            
+                    <div class="flex mx-auto justify-center w-full py-2 gap-2 w-96">
+                        <% for (let i = 0; i < favoriteProducts.length; i++) { %>
+                            <a href="#item<%= i + 1 %>"class="btn btn-xs"><%= i+1 %></a> 
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+             -->
+
         </div>
     </div>
 
     
- 
 </body>
 </html>
