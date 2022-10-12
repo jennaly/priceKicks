@@ -25,15 +25,19 @@
             </div>
         </div>
     </div>
-    
+
     <% if (favoriteProducts.length > 0) { %>
-        <div class="px-4">
+        <div class="px-4" id="favorites">
             <div class="carousel carousel-center w-full p-4 space-x-4 rounded-box">
                 <% for (let i = 0; i < favoriteProducts.length; i++) { %>
                     <div class="carousel-item rounded-box flex flex-col w-60">
-                        <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>"  class="bg-slate-200 block w-full mx-auto px-2 mb-2" />
-                        <span class="block font-bold text-black flex-wrap"> <%= favoriteProducts[i].productName %> </span>
-                        <span class="block text-sm opacity-50 text-slate-500"> <%= favoriteProducts[i].sku %></span>
+                      
+                        <a href="/product?sku=<%= favoriteProducts[i].sku %>">
+                            <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>"  class="bg-slate-200 block w-full mx-auto px-2 mb-2"></img>
+                            <span class="block font-bold text-black flex-wrap">  <%= favoriteProducts[i].productName %> </span>
+                            <span class="block text-sm opacity-50 text-slate-700"> <%= favoriteProducts[i].sku %> </span>
+                        </a>
+              
                     </div> 
                 <% } %>
             </div>
