@@ -12,16 +12,16 @@
       </nav>
     </div>
 
-    <div class="hero min-h-screen" style="background-image: url(../assets/index-hero2.jpg);">
-        <%- include('./partials/hero'); %>
-    </div>
+
+    <%- include('./partials/hero'); %>
+  
 
     <% if (favoriteProducts.length > 0) { %>
         <div class="px-4" id="favorites">
             <div class="carousel carousel-center w-full p-4 space-x-4 rounded-box">
                 <% for (let i = 0; i < favoriteProducts.length; i++) { %>
                     <div class="carousel-item rounded-box flex flex-col w-60 relative">
-                            <form action="/product/<%= favoriteProducts[i].id %>?_method=DELETE" method="POST">
+                            <form action="/product/<%= favoriteProducts[i].id %>?_method=DELETE" method="POST" id="form">
                                 <button class="btn btn-circle btn-outline absolute right-0 top-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
@@ -36,5 +36,6 @@
             </div>
         </div>
     <% } %>
+    <script src="/js/progressLoader.js"></script>
 </body>
 </html>
