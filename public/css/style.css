@@ -3340,9 +3340,9 @@ html {
 .top-1 {
   top: 0.25rem;
 }
-.my-9 {
-  margin-top: 2.25rem;
-  margin-bottom: 2.25rem;
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -3351,10 +3351,6 @@ html {
 .my-10 {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
-}
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 .mb-2 {
   margin-bottom: 0.5rem;
@@ -3525,9 +3521,9 @@ html {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.py-36 {
-  padding-top: 9rem;
-  padding-bottom: 9rem;
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .px-6 {
   padding-left: 1.5rem;
@@ -3725,7 +3721,21 @@ html {
 }
 @media (min-width: 1536px) {
 
+  .\32xl\:my-9 {
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .\32xl\:mt-4 {
+    margin-top: 1rem;
+  }
+
   .\32xl\:w-1\/2 {
     width: 50%;
+  }
+
+  .\32xl\:py-36 {
+    padding-top: 9rem;
+    padding-bottom: 9rem;
   }
 }
