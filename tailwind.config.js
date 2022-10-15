@@ -2,9 +2,14 @@
 module.exports = {
   content: ["./views/**/*.{ejs,js}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'press-start': ['"Press Start 2P"']
+      },
+    },
   },
   plugins: [require("daisyui")],
  
  
 }
+
