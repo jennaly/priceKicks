@@ -64,12 +64,12 @@
             </div>
         </div>
 
+        <!--tab links-->
+        <div class="tabs">
+            <a class="tab tab-lifted tab-active" onclick="toggleTable(event, 'LowestAsk')">Lowest Ask</a> 
+            <a class="tab tab-lifted"  onclick="toggleTable(event, 'Payout')">Payout</a> 
+        </div>
         <div class="overflow-x-auto rounded-md">
-            <!--tab links-->
-            <div class="tabs">
-                <a class="tab tab-lifted tab-active" onclick="toggleTable(event, 'LowestAsk')">Lowest Ask</a> 
-                <a class="tab tab-lifted"  onclick="toggleTable(event, 'Payout')">Payout</a> 
-            </div>
             <!--Tab content-->
             <div id="LowestAsk" class="tabcontent">
                 <%- include('./partials/price-table'); %>
