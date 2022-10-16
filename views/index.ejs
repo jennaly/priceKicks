@@ -22,14 +22,14 @@
                 <% for (let i = 0; i < favoriteProducts.length; i++) { %>
                     <div class="carousel-item rounded-box flex flex-col w-60 relative">
                             <form action="/product/<%= favoriteProducts[i].id %>?_method=DELETE" method="POST" id="form">
-                                <button class="btn btn-circle btn-outline absolute right-0 top-1">
+                                <button class="btn btn-circle btn-outline absolute right-2 top-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
                             </form>
                         <a href="/product?sku=<%= favoriteProducts[i].sku %>#product-info">
-                            <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>"  class="bg-slate-200 block w-full mx-auto px-2 mb-2"></img>
-                            <span class="block font-bold text-black flex-wrap">  <%= favoriteProducts[i].productName %> </span>
-                            <span class="block text-sm opacity-50 text-slate-700"> <%= favoriteProducts[i].sku %> </span>
+                            <img src="<%= favoriteProducts[i].imageUrl %>" alt="<%= favoriteProducts[i].productName %>"  class="bg-slate-200 block w-full mx-auto px-2 mb-2 dark:bg-black dark:outline dark:outline-1 dark:outline-slate-100"></img>
+                            <span class="block font-bold text-black flex-wrap dark:text-slate-200">  <%= favoriteProducts[i].productName %> </span>
+                            <span class="block text-sm opacity-50 text-slate-700 dark:text-slate-50"> <%= favoriteProducts[i].sku %> </span>
                         </a>
                     </div> 
                 <% } %>
