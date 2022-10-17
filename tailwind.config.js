@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'rampart-one': ['Rampart One', 'cursive']
+        'rampart-one': ['Rampart One', 'cursive'],
+        'poppins': ['Poppins', 'sans-serif'] 
       },
     },
   },

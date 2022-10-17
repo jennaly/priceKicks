@@ -3541,6 +3541,9 @@ html {
 .align-middle {
   vertical-align: middle;
 }
+.font-poppins {
+  font-family: Poppins, sans-serif;
+}
 .font-rampart-one {
   font-family: Rampart One, cursive;
 }
