@@ -3361,6 +3361,9 @@ html {
 .mt-2 {
   margin-top: 0.5rem;
 }
+.mb-4 {
+  margin-bottom: 1rem;
+}
 .mt-3 {
   margin-top: 0.75rem;
 }
@@ -3758,12 +3761,20 @@ html {
     margin-right: auto;
   }
 
+  .md\:flex {
+    display: flex;
+  }
+
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
   }
 }
 @media (min-width: 1024px) {
+
+  .lg\:mb-0 {
+    margin-bottom: 0px;
+  }
 
   .lg\:flex {
     display: flex;
