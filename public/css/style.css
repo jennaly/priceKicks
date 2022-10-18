@@ -4048,4 +4048,9 @@ html {
     padding-top: 9rem;
     padding-bottom: 9rem;
   }
+
+  .\32xl\:py-72 {
+    padding-top: 18rem;
+    padding-bottom: 18rem;
+  }
 }
