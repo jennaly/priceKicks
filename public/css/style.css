@@ -3547,6 +3547,9 @@ html {
 .h-5 {
   height: 1.25rem;
 }
+.h-\[62vh\] {
+  height: 62vh;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -4047,10 +4050,5 @@ html {
   .\32xl\:py-36 {
     padding-top: 9rem;
     padding-bottom: 9rem;
-  }
-
-  .\32xl\:py-72 {
-    padding-top: 18rem;
-    padding-bottom: 18rem;
   }
 }
