@@ -34,6 +34,7 @@ PriceKicks compares prices from leading sneaker websites and calculates the rese
 - Finding a website's API by looking the Network tab to see requests that the website makes when user input is being submitted.
 - Recreating those requests to simulate API calls to the server and getting relevant data back.
 - Tranforming JSON data retrieved from their server and integrating it to PriceKicks, streaming the data to the client in a presentable form.
+- Using Passport to set up application authentication
 - Deploying the application manually to a cloud server.
 
 
