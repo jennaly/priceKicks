@@ -27,6 +27,8 @@ PriceKicks compares prices from leading sneaker websites and calculates the rese
 2. Add a progress indicator
 - add a loading bar component to let users know that the data is currently getting fetched when data is not getting instantly returned.
 
+3. Get data from more platforms (ex: Grailed, FootLocker, etc.)
+
 ## Skills Learned:
 - Navigating different tabs in the browser's Developer Tools to see the contents of what is getting sent across the browser, the website's client, and their server.
 - Finding a website's API by looking the Network tab to see requests that the website makes when user input is being submitted.
