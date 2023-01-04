@@ -1,5 +1,5 @@
 # PriceKicks 
-**Link to project:** http://pricekicks.jennaly.net
+**[Link to project demo](https://www.linkedin.com/posts/jennaly_this-is-my-most-recent-project-pricekicks-activity-6990748458219425792-Obn6/?utm_source=share&utm_medium=member_desktop)** 
 
 **Tech used:** Node, Express, Axios, MongoDB, EJS, Mongoose, Passport, Tailwind, DaisyUI
 
